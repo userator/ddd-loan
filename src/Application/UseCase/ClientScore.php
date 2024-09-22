@@ -28,6 +28,9 @@ class ClientScore
         return $clients;
     }
 
+    /**
+     * @throws ApplicationException
+     */
     public function scoreClient(string $clientId): bool
     {
         $client = $this->repository->findById($clientId);

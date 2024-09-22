@@ -12,7 +12,6 @@ class SendEmailNotification
     public function __construct(
         private LoanEmailSendUseCase $useCase,
         private LoggerInterface $logger,
-
     ) {
     }
 

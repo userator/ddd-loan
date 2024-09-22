@@ -13,7 +13,6 @@ class LoanEmailSend
 
     public function __construct(
         private EmailSender $emailSender,
-
     ) {
     }
 

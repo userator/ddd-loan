@@ -17,12 +17,11 @@ class ProductCreate
 
     /**
      * @param array{
-     *        name:string,
-     *        term:int,
-     *        interestRate:float,
-     *        amount:int,
+     *     name:string,
+     *     term:int,
+     *     interestRate:float,
+     *     amount:int,
      *  } $data
-     * @return Product
      * @throws ApplicationException
      */
     public function createProduct(array $data): Product

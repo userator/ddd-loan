@@ -35,17 +35,17 @@ class ClientModify
 
     /**
      * @param array{
-     *      lastName:string,
-     *      name:string,
-     *      age:int,
-     *      addressCity:string,
-     *      addressState:string,
-     *      addressZip:string,
-     *      ssn:string,
-     *      fico:int,
-     *      phone:string,
-     *      email:string,
-     *      monthIncome:int,
+     *     lastName:string,
+     *     name:string,
+     *     age:int,
+     *     addressCity:string,
+     *     addressState:string,
+     *     addressZip:string,
+     *     ssn:string,
+     *     fico:int,
+     *     phone:string,
+     *     email:string,
+     *     monthIncome:int,
      *  } $data
      * @throws ApplicationException
      */
@@ -57,7 +57,11 @@ class ClientModify
                 (string)$data['lastName'],
                 (string)$data['name'],
                 (int)$data['age'],
-                new Address((string)$data['addressCity'], (string)$data['addressState'], (string)$data['addressZip']),
+                new Address(
+                    (string)$data['addressCity'],
+                    (string)$data['addressState'],
+                    (string)$data['addressZip'],
+                ),
                 new Ssn((string)$data['ssn']),
                 new Fico((int)$data['fico']),
                 new Email((string)$data['email']),

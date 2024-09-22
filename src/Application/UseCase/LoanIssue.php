@@ -57,6 +57,9 @@ class LoanIssue
         return $products;
     }
 
+    /**
+     * @throws ApplicationException
+     */
     public function issueLoan(string $clientId, string $productId): Loan
     {
         $client = $this->clientRepository->findById($clientId);
