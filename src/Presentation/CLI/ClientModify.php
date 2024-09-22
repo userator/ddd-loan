@@ -45,38 +45,14 @@ class ClientModify extends Command
                 'lastName' => $helper->ask($input, $output, new Question('Введите фамилию: ', $client->getLastName())),
                 'name' => $helper->ask($input, $output, new Question('Введите имя: ', $client->getName())),
                 'age' => $helper->ask($input, $output, new Question('Введите возраст: ', $client->getAge())),
-                'addressCity' => $helper->ask(
-                    $input,
-                    $output,
-                    new Question('Введите город: ', $client->getAddress()->getCity())
-                ),
-                'addressState' => $helper->ask(
-                    $input,
-                    $output,
-                    new Question('Введите код штата: ', $client->getAddress()->getState())
-                ),
-                'addressZip' => $helper->ask(
-                    $input,
-                    $output,
-                    new Question('Введите ZIP: ', $client->getAddress()->getZip())
-                ),
+                'city' => $helper->ask($input, $output, new Question('Введите город: ', $client->getAddress()->getCity())),
+                'state' => $helper->ask($input, $output, new Question('Введите код штата: ', $client->getAddress()->getState())),
+                'zip' => $helper->ask($input, $output, new Question('Введите ZIP: ', $client->getAddress()->getZip())),
                 'ssn' => $helper->ask($input, $output, new Question('Введите SSN: ', $client->getSsn()->getValue())),
                 'fico' => $helper->ask($input, $output, new Question('Введите FICO: ', $client->getFico()->getValue())),
-                'email' => $helper->ask(
-                    $input,
-                    $output,
-                    new Question('Введите емайл: ', $client->getEmail()->getValue())
-                ),
-                'phone' => $helper->ask(
-                    $input,
-                    $output,
-                    new Question('Введите тел. номер: ', $client->getPhone()->getValue())
-                ),
-                'monthIncome' => $helper->ask(
-                    $input,
-                    $output,
-                    new Question('Введите месячный доход: ', $client->getMonthIncome())
-                ),
+                'email' => $helper->ask($input, $output, new Question('Введите емайл: ', $client->getEmail()->getValue())),
+                'phone' => $helper->ask($input, $output, new Question('Введите тел. номер: ', $client->getPhone()->getValue())),
+                'monthIncome' => $helper->ask($input, $output, new Question('Введите месячный доход: ', $client->getMonthIncome())),
             ]
         );
 
