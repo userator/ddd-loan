@@ -18,11 +18,5 @@ init: build start status
 sh_php:
 	docker compose exec -i php bash
 
-sh_mysql:
-	docker compose exec -i mysql bash
-
-sh_postgres:
-	docker compose exec -i postgres bash
-
 stan:
 	php8.2 ./vendor/bin/phpstan analyse --configuration=phpstan.dist.neon
