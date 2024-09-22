@@ -21,8 +21,8 @@ class LoanList extends Command
     {
         $this
             ->setName('app:loan-list')
-            ->setDescription('List loans')
-            ->setHelp('This command list available loans');
+            ->setDescription('Показать список займов')
+            ->setHelp('Эта команда показывает список займов');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

@@ -21,8 +21,8 @@ class ClientList extends Command
     {
         $this
             ->setName('app:client-list')
-            ->setDescription('List clients')
-            ->setHelp('This command list available clients');
+            ->setDescription('Показать список клиентов')
+            ->setHelp('Эта команда показывает список клиентов');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

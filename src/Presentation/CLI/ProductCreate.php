@@ -24,8 +24,8 @@ class ProductCreate extends Command
     {
         $this
             ->setName('app:product-create')
-            ->setDescription('Create products')
-            ->setHelp('This command created available products');
+            ->setDescription('Создать новый продукт')
+            ->setHelp('Эта команда создаёт новый продукт');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

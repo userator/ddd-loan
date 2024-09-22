@@ -21,8 +21,8 @@ class ProductList extends Command
     {
         $this
             ->setName('app:product-list')
-            ->setDescription('List products')
-            ->setHelp('This command list available products');
+            ->setDescription('Показать список продуктов')
+            ->setHelp('Эта команда показывает список продуктов');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
