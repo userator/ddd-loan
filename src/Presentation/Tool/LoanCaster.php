@@ -12,6 +12,7 @@ class LoanCaster
      *      id:string,
      *      client:string,
      *      product:string,
+     *      interestRate:float,
      *  }>
      */
     public static function batchCastToArray(array $entities): array

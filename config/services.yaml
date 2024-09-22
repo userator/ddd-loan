@@ -16,7 +16,6 @@ services:
       - '../src/Application/Exception/*'
       - '../src/Application/Enum/*'
       - '../src/Infrastructure/HttpKernel/Kernel.php'
-      - '../src/Infrastructure/Service/FileProcessor.php'
 
   # dispatcher
 
