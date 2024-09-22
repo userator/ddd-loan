@@ -1,0 +1,67 @@
+parameters:
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  App\:
+    resource: '../src/'
+    exclude:
+      - '../src/Domain/Entity/*'
+      - '../src/Domain/Event/*'
+      - '../src/Domain/Exception/*'
+      - '../src/Domain/Repository/*'
+      - '../src/Domain/ValueObject/*'
+      - '../src/Application/Exception/*'
+      - '../src/Application/Enum/*'
+      - '../src/Infrastructure/HttpKernel/Kernel.php'
+      - '../src/Infrastructure/Service/FileProcessor.php'
+
+  # dispatcher
+
+  App\Infrastructure\Service\PsrEventDispatcher: ~
+
+  App\Application\Service\EventDispatcher:
+    alias: App\Infrastructure\Service\PsrEventDispatcher
+
+  # senders
+
+  App\Infrastructure\Service\FakeEmailSender:
+    arguments:
+      $path: '%kernel.project_dir%/var/email'
+
+  App\Infrastructure\Service\FakeSmsSender:
+    arguments:
+      $path: '%kernel.project_dir%/var/sms'
+
+  # listeners
+
+  App\Application\EventListener\SendEmailNotification:
+    tags: [ kernel.event_listener ]
+
+  App\Application\EventListener\SendSmsNotification:
+    tags: [ kernel.event_listener ]
+
+  # repositories
+
+  App\Infrastructure\Repository\FileClientRepository:
+    arguments:
+      $path: '%kernel.project_dir%/var/repository/client.txt'
+
+  App\Infrastructure\Repository\FileLoanRepository:
+    arguments:
+      $path: '%kernel.project_dir%/var/repository/loan.txt'
+
+  App\Infrastructure\Repository\FileProductRepository:
+    arguments:
+      $path: '%kernel.project_dir%/var/repository/product.txt'
+
+  App\Domain\Repository\ClientRepository:
+    alias: App\Infrastructure\Repository\FileClientRepository
+
+  App\Domain\Repository\LoanRepository:
+    alias: App\Infrastructure\Repository\FileLoanRepository
+
+  App\Domain\Repository\ProductRepository:
+    alias: App\Infrastructure\Repository\FileProductRepository
