@@ -1,39 +1,56 @@
 # Тестовое задание Команды кредитования (Loan Team)
 
-## Создать новый продукт и нового клиента
+## Создать новый продукт
 
 ```bash
-/usr/bin/php8.2 ./bin/console app:product-create
-/usr/bin/php8.2 ./bin/console app:client-create
+php8.2 ./bin/console app:product-create
 ```
 
-## Просмотреть списки продуктов и клиентов
+## Создать нового клиента
 
 ```bash
-/usr/bin/php8.2 ./bin/console app:product-list
-/usr/bin/php8.2 ./bin/console app:client-list
+php8.2 ./bin/console app:client-create
+```
+
+## Просмотреть список продуктов
+
+```bash
+php8.2 ./bin/console app:product-list
+```
+
+## Просмотреть список клиентов
+
+```bash
+php8.2 ./bin/console app:client-list
 ```
 
 ## Измененить информацию о существующем клиенте
 
 ```bash
-/usr/bin/php8.2 ./bin/console app:client-modify
+php8.2 ./bin/console app:client-modify
 ```
 
 ## Осуществить скоринг клиента (Проверка возможности выдачи займа)
 
 ```bash
-/usr/bin/php8.2 ./bin/console app:client-score
+php8.2 ./bin/console app:client-score
 ```
 
 ## Осуществить выдачу займа
 
 ```bash
-/usr/bin/php8.2 ./bin/console app:loan-issue
+php8.2 ./bin/console app:loan-issue
 ```
 
 ## Просмотреть список выданных займов
 
 ```bash
-/usr/bin/php8.2 ./bin/console app:loan-list
+php8.2 ./bin/console app:loan-list
+```
+
+## Просмотреть список отправленных email и смс сообщений
+
+```bash
+ls -l ./var/email
+ls -l ./var/sms
 ```
