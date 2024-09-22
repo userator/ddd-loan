@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Application\UserCase;
+namespace App\Application\UseCase;
 
 use App\Application\Exception\ApplicationException;
 use App\Domain\Entity\Client;
 use App\Domain\Repository\ClientRepository;
 
-class ClientList
+class ClientScore
 {
     public function __construct(
         private ClientRepository $repository,
@@ -17,7 +17,7 @@ class ClientList
      * @return Client[]
      * @throws ApplicationException
      */
-    public function listClients(): array
+    public function findClients(): array
     {
         $clients = $this->repository->findAll();
 
@@ -26,5 +26,16 @@ class ClientList
         }
 
         return $clients;
+    }
+
+    public function scoreClient(string $clientId): bool
+    {
+        $client = $this->repository->findById($clientId);
+
+        if (null === $client) {
+            throw new ApplicationException(sprintf('Клиент не найден по ID [%s]', $clientId));
+        }
+
+        return $client->checkPossibility();
     }
 }

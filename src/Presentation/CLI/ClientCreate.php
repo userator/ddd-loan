@@ -2,7 +2,7 @@
 
 namespace App\Presentation\CLI;
 
-use App\Application\UserCase\ClientCreate as ClientCreateUserCase;
+use App\Application\UseCase\ClientCreate as ClientCreateUseCase;
 use App\Presentation\Tool\ClientCaster;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -15,7 +15,7 @@ class ClientCreate extends Command
 {
 
     public function __construct(
-        private ClientCreateUserCase $useCase,
+        private ClientCreateUseCase $useCase,
     ) {
         parent::__construct();
     }

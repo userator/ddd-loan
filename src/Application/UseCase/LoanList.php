@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\UserCase;
+namespace App\Application\UseCase;
 
 use App\Application\Exception\ApplicationException;
 use App\Domain\Entity\Loan;

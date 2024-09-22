@@ -2,7 +2,7 @@
 
 namespace App\Presentation\CLI;
 
-use App\Application\UserCase\ProductList as ProductListUseCase;
+use App\Application\UseCase\ProductList as ProductListUseCase;
 use App\Presentation\Tool\ProductCaster;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;

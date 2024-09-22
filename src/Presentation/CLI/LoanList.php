@@ -2,7 +2,7 @@
 
 namespace App\Presentation\CLI;
 
-use App\Application\UserCase\LoanList as LoanListUseCase;
+use App\Application\UseCase\LoanList as LoanListUseCase;
 use App\Presentation\Tool\LoanCaster;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;

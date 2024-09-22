@@ -2,7 +2,7 @@
 
 namespace App\Presentation\CLI;
 
-use App\Application\UserCase\ClientModify as ClientModifyUseCase;
+use App\Application\UseCase\ClientModify as ClientModifyUseCase;
 use App\Presentation\Tool\ClientCaster;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;

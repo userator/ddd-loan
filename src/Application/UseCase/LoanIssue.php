@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\UserCase;
+namespace App\Application\UseCase;
 
 use App\Application\Exception\ApplicationException;
 use App\Application\Factory\LoanFactory;
@@ -14,7 +14,6 @@ use App\Domain\Repository\LoanRepository;
 use App\Domain\Repository\ProductRepository;
 use App\Domain\Service\LoanIssuer;
 use App\Domain\Service\LoanOfferer;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Uid\UuidV4;
 use Throwable;
 

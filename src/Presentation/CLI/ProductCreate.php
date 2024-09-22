@@ -2,7 +2,7 @@
 
 namespace App\Presentation\CLI;
 
-use App\Application\UserCase\ProductCreate as ProductCreateUseCase;
+use App\Application\UseCase\ProductCreate as ProductCreateUseCase;
 use App\Presentation\Tool\ProductCaster;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;

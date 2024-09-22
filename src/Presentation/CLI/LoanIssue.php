@@ -2,7 +2,7 @@
 
 namespace App\Presentation\CLI;
 
-use App\Application\UserCase\LoanIssue as LoanIssueUseCase;
+use App\Application\UseCase\LoanIssue as LoanIssueUseCase;
 use App\Presentation\Tool\ClientCaster;
 use App\Presentation\Tool\LoanCaster;
 use App\Presentation\Tool\ProductCaster;
