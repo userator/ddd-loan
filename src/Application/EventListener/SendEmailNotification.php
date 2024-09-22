@@ -3,18 +3,14 @@
 namespace App\Application\EventListener;
 
 use App\Application\Exception\ApplicationException;
-use App\Application\Service\EmailSender;
+use App\Application\UseCase\LoanEmailSend as LoanEmailSendUseCase;
 use App\Domain\Event\LoanIssued;
 use Psr\Log\LoggerInterface;
 
 class SendEmailNotification
 {
-    private const FROM = 'notifyer@company.com';
-    private const SUBJECT = 'Решение о выдаче кредита';
-    private const TEXT = 'Уважаемый %s вам выдан кредит %s на сумму %s под ставку %s годовых';
-
     public function __construct(
-        private EmailSender $emailSender,
+        private LoanEmailSendUseCase $useCase,
         private LoggerInterface $logger,
 
     ) {
@@ -23,18 +19,7 @@ class SendEmailNotification
     public function __invoke(LoanIssued $event): void
     {
         try {
-            $this->emailSender->sendEmail(
-                self::FROM,
-                $event->getLoan()->getClient()->getEmail()->getValue(),
-                self::SUBJECT,
-                sprintf(
-                    self::TEXT,
-                    $event->getLoan()->getClient()->getFullName(),
-                    $event->getLoan()->getProduct()->getName(),
-                    $event->getLoan()->getProduct()->getAmount(),
-                    $event->getLoan()->calcInterestRate(),
-                ),
-            );
+            $this->useCase->sendEmail($event);
         } catch (ApplicationException $exception) {
             $this->logger->error(
                 $exception->getMessage(),
