@@ -11,7 +11,6 @@ class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 
-
     private function getRepositoryDir(): string
     {
         return $this->getProjectDir() . '/var/repository';
