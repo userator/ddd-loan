@@ -19,4 +19,4 @@ sh_php:
 	docker compose exec -i php bash
 
 stan:
-	php8.2 ./vendor/bin/phpstan analyse --configuration=phpstan.dist.neon
+	php ./vendor/bin/phpstan analyse --configuration=phpstan.dist.neon
