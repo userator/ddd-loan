@@ -5,13 +5,14 @@ namespace App\Application\UseCase;
 use App\Application\Exception\ApplicationException;
 use App\Domain\Entity\Client;
 use App\Domain\Repository\ClientRepository;
+use App\Domain\Service\Randomizer;
 use App\Domain\ValueObject\Id;
-use App\Infrastructure\Service\RealRandomizer;
 
 class ClientScore
 {
     public function __construct(
         private ClientRepository $repository,
+        private Randomizer $randomizer,
     ) {
     }
 
@@ -41,6 +42,6 @@ class ClientScore
             throw new ApplicationException(sprintf('Клиент не найден по ID [%s]', $clientId));
         }
 
-        return $client->checkPossibility(new RealRandomizer());
+        return $client->checkPossibility($this->randomizer);
     }
 }

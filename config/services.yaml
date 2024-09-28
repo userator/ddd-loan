@@ -66,3 +66,15 @@ services:
 
   App\Domain\Repository\ProductRepository:
     alias: App\Infrastructure\Repository\FileProductRepository
+
+  # randomizer
+  App\Infrastructure\Service\RealRandomizer: ~
+
+  App\Domain\Service\Randomizer:
+    alias: App\Infrastructure\Service\RealRandomizer
+
+  # uuid generator
+  App\Infrastructure\Service\RfcUuidGenerator: ~
+
+  App\Domain\Service\UuidGenerator:
+    alias: App\Infrastructure\Service\RfcUuidGenerator

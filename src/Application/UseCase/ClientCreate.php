@@ -5,13 +5,14 @@ namespace App\Application\UseCase;
 use App\Application\Exception\ApplicationException;
 use App\Domain\Entity\Client;
 use App\Domain\Repository\ClientRepository;
-use Symfony\Component\Uid\Uuid;
+use App\Domain\Service\UuidGenerator;
 use Throwable;
 
 class ClientCreate
 {
     public function __construct(
         private ClientRepository $repository,
+        private UuidGenerator $uuidGenerator,
     ) {
     }
 
@@ -35,7 +36,7 @@ class ClientCreate
     {
         try {
             $client = Client::createFromArray(
-                array_merge($data, ['id' => Uuid::v4()->toRfc4122()])
+                array_merge($data, ['id' => $this->uuidGenerator->generate()])
             );
 
             $this->repository->save($client);

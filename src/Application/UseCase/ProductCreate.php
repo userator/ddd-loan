@@ -5,13 +5,14 @@ namespace App\Application\UseCase;
 use App\Application\Exception\ApplicationException;
 use App\Domain\Entity\Product;
 use App\Domain\Repository\ProductRepository;
-use Symfony\Component\Uid\Uuid;
+use App\Domain\Service\UuidGenerator;
 use Throwable;
 
 class ProductCreate
 {
     public function __construct(
         private ProductRepository $repository,
+        private UuidGenerator $uuidGenerator,
     ) {
     }
 
@@ -28,7 +29,7 @@ class ProductCreate
     {
         try {
             $product = Product::createFromArray(
-                array_merge($data, ['id' => Uuid::v4()->toRfc4122()]),
+                array_merge($data, ['id' => $this->uuidGenerator->generate()]),
             );
 
             $this->repository->save($product);
