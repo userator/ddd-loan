@@ -2,10 +2,10 @@
 
 namespace App\Application\EventListener;
 
-use App\Application\Exception\ApplicationException;
 use App\Application\UseCase\LoanSmsSend as LoanSmsSendUseCase;
 use App\Domain\Event\LoanIssued;
 use Psr\Log\LoggerInterface;
+use Throwable;
 
 class SendSmsNotification
 {
@@ -19,7 +19,7 @@ class SendSmsNotification
     {
         try {
             $this->useCase->sendSms($event);
-        } catch (ApplicationException $exception) {
+        } catch (Throwable $exception) {
             $this->logger->error(
                 $exception->getMessage(),
                 ['trace' => $exception->getTraceAsString()],

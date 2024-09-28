@@ -2,10 +2,10 @@
 
 namespace App\Application\EventListener;
 
-use App\Application\Exception\ApplicationException;
 use App\Application\UseCase\LoanEmailSend as LoanEmailSendUseCase;
 use App\Domain\Event\LoanIssued;
 use Psr\Log\LoggerInterface;
+use Throwable;
 
 class SendEmailNotification
 {
@@ -19,7 +19,7 @@ class SendEmailNotification
     {
         try {
             $this->useCase->sendEmail($event);
-        } catch (ApplicationException $exception) {
+        } catch (Throwable $exception) {
             $this->logger->error(
                 $exception->getMessage(),
                 ['trace' => $exception->getTraceAsString()],

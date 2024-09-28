@@ -2,8 +2,10 @@
 
 namespace App\Application\UseCase;
 
+use App\Application\Exception\ApplicationException;
 use App\Application\Service\EmailSender;
 use App\Domain\Event\LoanIssued;
+use Throwable;
 
 class LoanEmailSend
 {
@@ -16,19 +18,26 @@ class LoanEmailSend
     ) {
     }
 
+    /**
+     * @throws ApplicationException
+     */
     public function sendEmail(LoanIssued $event): void
     {
-        $this->emailSender->sendEmail(
-            self::FROM,
-            $event->getLoan()->getClient()->getEmail()->getValue(),
-            self::SUBJECT,
-            sprintf(
-                self::TEXT,
-                $event->getLoan()->getClient()->getFullName(),
-                $event->getLoan()->getProduct()->getName(),
-                $event->getLoan()->getProduct()->getAmount(),
-                $event->getLoan()->calcInterestRate(),
-            ),
-        );
+        try {
+            $this->emailSender->sendEmail(
+                self::FROM,
+                $event->getLoan()->getClient()->getEmail()->getValue(),
+                self::SUBJECT,
+                sprintf(
+                    self::TEXT,
+                    $event->getLoan()->getClient()->getFullName(),
+                    $event->getLoan()->getProduct()->getName(),
+                    $event->getLoan()->getProduct()->getAmount(),
+                    $event->getLoan()->calcInterestRate(),
+                ),
+            );
+        } catch (Throwable $exception) {
+            throw new ApplicationException($exception->getMessage(), $exception);
+        }
     }
 }
