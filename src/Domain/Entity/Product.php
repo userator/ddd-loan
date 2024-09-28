@@ -2,10 +2,13 @@
 
 namespace App\Domain\Entity;
 
+use App\Domain\Exception\DomainException;
+use App\Domain\ValueObject\Id;
+
 class Product
 {
     public function __construct(
-        private string $id,
+        private Id $id,
         private string $name,
         private int $term,
         private float $interestRate,
@@ -13,9 +16,34 @@ class Product
     ) {
     }
 
+    /**
+     * @param array<mixed> $data
+     * @throws DomainException
+     */
+    public static function createFromArray(array $data): self
+    {
+        if (!isset(
+            $data['id'],
+            $data['name'],
+            $data['term'],
+            $data['interestRate'],
+            $data['amount'],
+        )) {
+            throw new DomainException('Invalid argument');
+        }
+
+        return new self(
+            new Id((string)$data['id']),
+            (string)$data['name'],
+            (int)$data['term'],
+            (float)$data['interestRate'],
+            (int)$data['amount'],
+        );
+    }
+
     // mutators
 
-    public function getId(): string
+    public function getId(): Id
     {
         return $this->id;
     }

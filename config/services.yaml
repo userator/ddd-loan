@@ -13,24 +13,26 @@ services:
       - '../src/Domain/Exception/*'
       - '../src/Domain/Repository/*'
       - '../src/Domain/ValueObject/*'
+      - '../src/Domain/Service/FakeRandomizer.php'
       - '../src/Application/Exception/*'
       - '../src/Application/Enum/*'
+      - '../src/Infrastructure/Exception/*'
       - '../src/Infrastructure/HttpKernel/Kernel.php'
 
-  # dispatcher
+  # event-dispatcher
 
-  App\Infrastructure\Service\PsrEventDispatcher: ~
+  App\Infrastructure\EventDispatcher\PsrEventDispatcher: ~
 
   App\Application\Service\EventDispatcher:
-    alias: App\Infrastructure\Service\PsrEventDispatcher
+    alias: App\Infrastructure\EventDispatcher\PsrEventDispatcher
 
   # senders
 
-  App\Infrastructure\Service\FakeEmailSender:
+  App\Infrastructure\Service\FileEmailSender:
     arguments:
       $path: '%kernel.project_dir%/var/email'
 
-  App\Infrastructure\Service\FakeSmsSender:
+  App\Infrastructure\Service\FileSmsSender:
     arguments:
       $path: '%kernel.project_dir%/var/sms'
 

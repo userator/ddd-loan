@@ -7,9 +7,9 @@ use App\Domain\Event\LoanIssued;
 
 class LoanEmailSend
 {
-    private const FROM = 'notifyer@company.com';
-    private const SUBJECT = 'Решение о выдаче кредита';
-    private const TEXT = 'Уважаемый %s вам выдан кредит %s на сумму %s под ставку %s годовых';
+    public const FROM = 'notifyer@company.com';
+    public const SUBJECT = 'Решение о выдаче кредита';
+    public const TEXT = 'Уважаемый %s вам выдан кредит %s на сумму %s под ставку %s годовых';
 
     public function __construct(
         private EmailSender $emailSender,

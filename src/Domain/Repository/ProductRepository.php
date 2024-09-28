@@ -3,10 +3,11 @@
 namespace App\Domain\Repository;
 
 use App\Domain\Entity\Product;
+use App\Domain\ValueObject\Id;
 
 interface ProductRepository
 {
-    public function findById(string $id): ?Product;
+    public function findById(Id $id): ?Product;
 
     /**
      * @return Product[]

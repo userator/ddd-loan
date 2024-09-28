@@ -19,8 +19,8 @@ class ProductCaster
     public static function batchCastToArray(array $entities): array
     {
         return array_map(
-            fn(Product $entity) => [
-                'id' => $entity->getId(),
+            static fn(Product $entity) => [
+                'id' => $entity->getId()->getValue(),
                 'name' => $entity->getName(),
                 'term' => $entity->getTerm(),
                 'interestRate' => $entity->getInterestRate(),

@@ -2,6 +2,8 @@
 
 namespace App\Infrastructure\Trait;
 
+use App\Application\Exception\InfrastructureException;
+
 /**
  * @property string $path
  */
@@ -12,8 +14,31 @@ trait FilePersister
      */
     public function read(): array
     {
-        touch($this->path);
-        return (array)(unserialize((string)file_get_contents($this->path)) ?: []);
+        if (false === file_exists($this->path)) {
+            return [];
+        }
+
+        $content = file_get_contents($this->path);
+
+        if (false === $content) {
+            throw new InfrastructureException('Fail content read');
+        }
+
+        if ('' === $content) {
+            return [];
+        }
+
+        $unserialized = unserialize($content);
+
+        if (false === $unserialized) {
+            throw new InfrastructureException('Fail content unserialize');
+        }
+
+        if (false === is_array($unserialized)) {
+            throw new InfrastructureException('Invalid content');
+        }
+
+        return $unserialized;
     }
 
     /**
@@ -21,7 +46,8 @@ trait FilePersister
      */
     public function write(array $value): void
     {
-        touch($this->path);
-        file_put_contents($this->path, serialize($value));
+        if (false === file_put_contents($this->path, serialize($value))) {
+            throw new InfrastructureException('Fail content write');
+        }
     }
 }

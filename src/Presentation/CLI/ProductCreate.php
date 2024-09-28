@@ -4,6 +4,7 @@ namespace App\Presentation\CLI;
 
 use App\Application\UseCase\ProductCreate as ProductCreateUseCase;
 use App\Presentation\Tool\ProductCaster;
+use Faker\Factory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Helper\Table;
@@ -34,16 +35,17 @@ class ProductCreate extends Command
          * @var QuestionHelper
          */
         $helper = $this->getHelper('question');
+        $faker = Factory::create();
 
         $product = $this->useCase->createProduct([
-            'name' => $helper->ask($input, $output, new Question('Введите название: ', 'симплекс')),
-            'term' => $helper->ask($input, $output, new Question('Введите длительность: ', 365)),
-            'interestRate' => $helper->ask($input, $output, new Question('Введите ставку: ', 4.0)),
-            'amount' => $helper->ask($input, $output, new Question('Введите сумму: ', 4000)),
+            'name' => $helper->ask($input, $output, new Question('Введите название: ', $faker->word())),
+            'term' => $helper->ask($input, $output, new Question('Введите длительность в днях: ', $faker->numberBetween(1, 365))),
+            'interestRate' => $helper->ask($input, $output, new Question('Введите ставку (#.#): ', $faker->randomFloat(1, 1.0, 19.9))),
+            'amount' => $helper->ask($input, $output, new Question('Введите сумму: ', $faker->numberBetween(1000, 99999))),
         ]);
 
         $output->writeln('');
-        $output->writeln('Создан продукт с ID [' . $product->getId() . ']');
+        $output->writeln('Создан продукт с ID [' . $product->getId()->getValue() . ']');
 
         $productLines = ProductCaster::batchCastToArray([$product]);
 

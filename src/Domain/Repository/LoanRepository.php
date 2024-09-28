@@ -3,10 +3,11 @@
 namespace App\Domain\Repository;
 
 use App\Domain\Entity\Loan;
+use App\Domain\ValueObject\Id;
 
 interface LoanRepository
 {
-    public function findById(string $id): ?Loan;
+    public function findById(Id $id): ?Loan;
 
     /**
      * @return Loan[]

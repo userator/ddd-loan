@@ -7,7 +7,7 @@ use App\Domain\Event\LoanIssued;
 
 class LoanSmsSend
 {
-    private const TEXT = 'Уважаемый %s вам выдан кредит %s на сумму %s под ставку %s годовых';
+    public const TEXT = 'Уважаемый %s вам выдан кредит %s на сумму %s под ставку %s годовых';
 
     public function __construct(
         private SmsSender $smsSender,

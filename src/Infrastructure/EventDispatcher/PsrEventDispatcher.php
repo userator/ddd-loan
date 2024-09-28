@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\Service;
+namespace App\Infrastructure\EventDispatcher;
 
 use App\Application\Service\EventDispatcher;
 use Psr\EventDispatcher\EventDispatcherInterface;

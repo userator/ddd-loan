@@ -2,19 +2,21 @@
 
 namespace App\Domain\Entity;
 
+use App\Domain\ValueObject\Id;
+
 final class Loan
 {
-    private const STATE = 'NY';
-    private const RATE = 11.49;
+    public const STATE = 'NY';
+    public const RATE = 11.49;
 
     public function __construct(
-        private string $id,
+        private Id $id,
         private Client $client,
         private Product $product,
     ) {
     }
 
-    public function getId(): string
+    public function getId(): Id
     {
         return $this->id;
     }

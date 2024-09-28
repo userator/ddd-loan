@@ -2,16 +2,19 @@
 
 namespace App\Domain\Entity;
 
+use App\Domain\Exception\DomainException;
+use App\Domain\Service\Randomizer;
 use App\Domain\ValueObject\Address;
 use App\Domain\ValueObject\Email;
 use App\Domain\ValueObject\Fico;
+use App\Domain\ValueObject\Id;
 use App\Domain\ValueObject\Phone;
 use App\Domain\ValueObject\Ssn;
 
 class Client
 {
     public function __construct(
-        private string $id,
+        private Id $id,
         private string $lastName,
         private string $name,
         private int $age,
@@ -22,11 +25,47 @@ class Client
         private Phone $phone,
         private int $monthIncome,
     ) {
+        $this->lastName = trim($this->lastName);
+        $this->name = trim($this->name);
+    }
+
+    /**
+     * @param array<mixed> $data
+     * @throws DomainException
+     */
+    public static function createFromArray(array $data): self
+    {
+        if (!isset(
+            $data['id'],
+            $data['lastName'],
+            $data['name'],
+            $data['age'],
+            $data['ssn'],
+            $data['fico'],
+            $data['email'],
+            $data['phone'],
+            $data['monthIncome'],
+        )) {
+            throw new DomainException('Invalid argument');
+        }
+
+        return new self(
+            new Id((string)$data['id']),
+            (string)$data['lastName'],
+            (string)$data['name'],
+            (int)$data['age'],
+            Address::createFromArray($data),
+            new Ssn((string)$data['ssn']),
+            new Fico((int)$data['fico']),
+            new Email((string)$data['email']),
+            new Phone((string)$data['phone']),
+            (int)$data['monthIncome'],
+        );
     }
 
     // mutators
 
-    public function getId(): string
+    public function getId(): Id
     {
         return $this->id;
     }
@@ -83,14 +122,6 @@ class Client
         return $this->name . ' ' . $this->lastName;
     }
 
-    /**
-     * алгоритм расчета кредитного рейтинга
-     */
-    public function calcCreditScore(): int
-    {
-        return 800;
-    }
-
     /*
      * Проверка возможности выдачи кредита.
      *
@@ -100,9 +131,9 @@ class Client
      * Кредит выдается только в штатах CA, NY, NV
      * Клиентам из NY рандомно отказываем.
      */
-    public function checkPossibility(): bool
+    public function checkPossibility(Randomizer $randomizer): bool
     {
-        if ($this->calcCreditScore() <= 500) {
+        if ($this->getFico()->getValue() <= 500) {
             return false;
         }
 
@@ -119,7 +150,7 @@ class Client
         }
 
         if ('NY' === $this->getAddress()->getState()) {
-            return (bool)rand(0, 1);
+            return $randomizer->randomize();
         }
 
         return true;

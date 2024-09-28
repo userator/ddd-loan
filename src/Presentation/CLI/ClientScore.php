@@ -13,7 +13,6 @@ use Symfony\Component\Console\Question\ChoiceQuestion;
 
 class ClientScore extends Command
 {
-
     public function __construct(
         private ClientScoreUseCase $useCase,
     ) {
@@ -44,11 +43,7 @@ class ClientScore extends Command
             ->setRows($clientLines)
             ->render();
 
-        $clientId = (string)$helper->ask(
-            $input,
-            $output,
-            new ChoiceQuestion('Введите ID клиента: ', array_column($clientLines, 'id'))
-        );
+        $clientId = (string)$helper->ask($input, $output, new ChoiceQuestion('Введите ID клиента: ', array_column($clientLines, 'id')));
 
         $output->writeln('');
         $output->writeln(

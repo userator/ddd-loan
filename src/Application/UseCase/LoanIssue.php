@@ -14,7 +14,9 @@ use App\Domain\Repository\LoanRepository;
 use App\Domain\Repository\ProductRepository;
 use App\Domain\Service\LoanIssuer;
 use App\Domain\Service\LoanOfferer;
-use Symfony\Component\Uid\UuidV4;
+use App\Domain\ValueObject\Id;
+use App\Infrastructure\Service\RealRandomizer;
+use Symfony\Component\Uid\Uuid;
 use Throwable;
 
 class LoanIssue
@@ -62,25 +64,25 @@ class LoanIssue
      */
     public function issueLoan(string $clientId, string $productId): Loan
     {
-        $client = $this->clientRepository->findById($clientId);
+        $client = $this->clientRepository->findById(new Id($clientId));
 
         if (null === $client) {
             throw new ApplicationException('Клиент не найден');
         }
 
-        $product = $this->productRepository->findById($productId);
+        $product = $this->productRepository->findById(new Id($productId));
 
         if (null === $product) {
             throw new ApplicationException('Продукт не найден');
         }
 
-        if (!$client->checkPossibility()) {
+        if (!$client->checkPossibility(new RealRandomizer())) {
             throw new ApplicationException('Нельзя выдать займ клиенту');
         }
 
         try {
             $loan = new Loan(
-                (new UuidV4())->toRfc4122(),
+                new Id(Uuid::v4()->toRfc4122()),
                 $client,
                 $product,
             );

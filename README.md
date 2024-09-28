@@ -81,3 +81,17 @@ ls -l ./var/email
 ```bash
 ls -l ./var/sms
 ```
+
+## Разрботка
+
+Запустить статический анализатор
+
+```bash
+make stan
+```
+
+Запустить юнит-тесты
+
+```bash
+make phpunit
+```

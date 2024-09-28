@@ -18,10 +18,10 @@ class LoanCaster
     public static function batchCastToArray(array $entities): array
     {
         return array_map(
-            fn(Loan $entity) => [
-                'id' => $entity->getId(),
-                'client' => $entity->getClient()->getId(),
-                'product' => $entity->getProduct()->getId(),
+            static fn(Loan $entity) => [
+                'id' => $entity->getId()->getValue(),
+                'client' => $entity->getClient()->getId()->getValue(),
+                'product' => $entity->getProduct()->getId()->getValue(),
                 'interestRate' => $entity->calcInterestRate(),
             ],
             $entities,

@@ -4,6 +4,7 @@ namespace App\Infrastructure\Repository;
 
 use App\Domain\Entity\Client;
 use App\Domain\Repository\ClientRepository;
+use App\Domain\ValueObject\Id;
 use App\Infrastructure\Trait\FilePersister;
 
 class FileClientRepository implements ClientRepository
@@ -15,12 +16,12 @@ class FileClientRepository implements ClientRepository
     ) {
     }
 
-    public function findById(string $id): ?Client
+    public function findById(Id $id): ?Client
     {
         return current(
             array_filter(
                 $this->read(),
-                fn(Client $item) => $id === $item->getId(),
+                static fn(Client $item) => $id->getValue() === $item->getId()->getValue(),
             )
         ) ?: null;
     }
@@ -42,7 +43,7 @@ class FileClientRepository implements ClientRepository
         $data = array_reduce(
             $data,
             function (array $lines, Client $line) {
-                $lines[$line->getId()] = $line;
+                $lines[$line->getId()->getValue()] = $line;
                 return $lines;
             },
             [],

@@ -4,6 +4,7 @@ namespace App\Infrastructure\Repository;
 
 use App\Domain\Entity\Loan;
 use App\Domain\Repository\LoanRepository;
+use App\Domain\ValueObject\Id;
 use App\Infrastructure\Trait\FilePersister;
 
 class FileLoanRepository implements LoanRepository
@@ -15,12 +16,12 @@ class FileLoanRepository implements LoanRepository
     ) {
     }
 
-    public function findById(string $id): ?Loan
+    public function findById(Id $id): ?Loan
     {
         return current(
             array_filter(
                 $this->read(),
-                fn(Loan $item) => $id === $item->getId(),
+                static fn(Loan $item) => $id->getValue() === $item->getId()->getValue(),
             )
         ) ?: null;
     }
@@ -42,7 +43,7 @@ class FileLoanRepository implements LoanRepository
         $data = array_reduce(
             $data,
             function (array $lines, Loan $line) {
-                $lines[$line->getId()] = $line;
+                $lines[$line->getId()->getValue()] = $line;
                 return $lines;
             },
             [],

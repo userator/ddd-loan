@@ -10,13 +10,15 @@ start:
 stop:
 	docker compose down --remove-orphans
 
-restart:
-	docker compose restart
+restart: stop start
 
-init: build start status
+init: build stop start status
 
 sh_php:
 	docker compose exec -i php bash
 
 stan:
-	php ./vendor/bin/phpstan analyse --configuration=phpstan.dist.neon
+	docker compose exec -i php ./vendor/bin/phpstan analyse --configuration=phpstan.dist.neon
+
+phpunit:
+	docker compose exec -i php ./vendor/bin/phpunit --configuration=phpunit.xml.dist

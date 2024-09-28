@@ -5,11 +5,7 @@ namespace App\Application\UseCase;
 use App\Application\Exception\ApplicationException;
 use App\Domain\Entity\Client;
 use App\Domain\Repository\ClientRepository;
-use App\Domain\ValueObject\Address;
-use App\Domain\ValueObject\Email;
-use App\Domain\ValueObject\Fico;
-use App\Domain\ValueObject\Phone;
-use App\Domain\ValueObject\Ssn;
+use App\Domain\ValueObject\Id;
 use Throwable;
 
 class ClientModify
@@ -20,11 +16,26 @@ class ClientModify
     }
 
     /**
+     * @return Client[]
+     * @throws ApplicationException
+     */
+    public function listClients(): array
+    {
+        $clients = $this->repository->findAll();
+
+        if ([] === $clients) {
+            throw new ApplicationException('Клиентов не найдено');
+        }
+
+        return $clients;
+    }
+
+    /**
      * @throws ApplicationException
      */
     public function findClient(string $clientId): Client
     {
-        $client = $this->repository->findById($clientId);
+        $client = $this->repository->findById(new Id($clientId));
 
         if (null === $client) {
             throw new ApplicationException(sprintf('Клиент не найден по ID [%s]', $clientId));
@@ -52,21 +63,8 @@ class ClientModify
     public function modifyClient(string $clientId, array $data): Client
     {
         try {
-            $client = new Client(
-                $clientId,
-                (string)$data['lastName'],
-                (string)$data['name'],
-                (int)$data['age'],
-                new Address(
-                    (string)$data['city'],
-                    (string)$data['state'],
-                    (string)$data['zip'],
-                ),
-                new Ssn((string)$data['ssn']),
-                new Fico((int)$data['fico']),
-                new Email((string)$data['email']),
-                new Phone((string)$data['phone']),
-                (int)$data['monthIncome'],
+            $client = Client::createFromArray(
+                array_merge($data, ['id' => $clientId])
             );
 
             $this->repository->save($client);

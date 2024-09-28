@@ -6,8 +6,8 @@ use App\Domain\Exception\DomainException;
 
 class Fico
 {
-    private const MIN = 300;
-    private const MAX = 850;
+    public const MIN = 300;
+    public const MAX = 850;
 
     public function __construct(
         private int $value,

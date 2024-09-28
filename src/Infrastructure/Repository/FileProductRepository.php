@@ -4,6 +4,7 @@ namespace App\Infrastructure\Repository;
 
 use App\Domain\Entity\Product;
 use App\Domain\Repository\ProductRepository;
+use App\Domain\ValueObject\Id;
 use App\Infrastructure\Trait\FilePersister;
 
 class FileProductRepository implements ProductRepository
@@ -15,12 +16,12 @@ class FileProductRepository implements ProductRepository
     ) {
     }
 
-    public function findById(string $id): ?Product
+    public function findById(Id $id): ?Product
     {
         return current(
             array_filter(
                 $this->read(),
-                fn(Product $item) => $id === $item->getId(),
+                static fn(Product $item) => $id->getValue() === $item->getId()->getValue(),
             )
         ) ?: null;
     }
@@ -42,7 +43,7 @@ class FileProductRepository implements ProductRepository
         $data = array_reduce(
             $data,
             function (array $lines, Product $line) {
-                $lines[$line->getId()] = $line;
+                $lines[$line->getId()->getValue()] = $line;
                 return $lines;
             },
             [],

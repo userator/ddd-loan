@@ -6,16 +6,20 @@ use App\Domain\Exception\DomainException;
 
 class Address
 {
-    private const ADDRESS_SEPARATOR = ', ';
-    private const CITY_REGEX = '/^([A-Za-z]+(?: [A-Za-z]+)*)$/';
-    private const SATE_REGEX = '/^[A-Z]{2}$/';
-    private const ZIP_REGEX = '/^\d{5}(?:[-\s]\d{4})?$/';
+    public const ADDRESS_SEPARATOR = ', ';
+    public const CITY_REGEX = '/^([A-Za-z]+(?: [A-Za-z]+)*)$/';
+    public const SATE_REGEX = '/^[A-Z]{2}$/';
+    public const ZIP_REGEX = '/^\d{5}(?:[-\s]\d{4})?$/';
 
     public function __construct(
         private string $city,
         private string $state,
         private string $zip,
     ) {
+        $this->city = trim($this->city);
+        $this->state = trim(strtoupper($this->state));
+        $this->zip = trim($this->zip);
+
         if (false === (bool)preg_match(self::CITY_REGEX, $this->city)) {
             throw new DomainException(sprintf('Invalid city [%s]', $this->city));
         }
@@ -31,9 +35,34 @@ class Address
 
     public static function createFromString(string $address): self
     {
-        $parts = explode(self::ADDRESS_SEPARATOR, $address, 3);
+        $parts = explode(trim(self::ADDRESS_SEPARATOR), $address, 3);
 
-        return new self($parts[0] ?? '', $parts[1] ?? '', $parts[2] ?? '');
+        return new self(
+            $parts[0] ?? '',
+            $parts[1] ?? '',
+            $parts[2] ?? '',
+        );
+    }
+
+    /**
+     * @param array<mixed> $data
+     * @throws DomainException
+     */
+    public static function createFromArray(array $data): self
+    {
+        if (!isset(
+            $data['city'],
+            $data['state'],
+            $data['zip'],
+        )) {
+            throw new DomainException('Invalid argument');
+        }
+
+        return new self(
+            (string)$data['city'],
+            (string)$data['state'],
+            (string)$data['zip'],
+        );
     }
 
     // mutators

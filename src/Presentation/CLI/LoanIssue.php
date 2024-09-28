@@ -49,11 +49,7 @@ class LoanIssue extends Command
             ->setRows($clientLines)
             ->render();
 
-        $clientId = (string)$helper->ask(
-            $input,
-            $output,
-            new ChoiceQuestion('Введите ID клиента: ', array_column($clientLines, 'id'))
-        );
+        $clientId = (string)$helper->ask($input, $output, new ChoiceQuestion('Введите ID клиента: ', array_column($clientLines, 'id')));
 
         // продукт
 
@@ -66,18 +62,14 @@ class LoanIssue extends Command
             ->setRows($productLines)
             ->render();
 
-        $productId = (string)$helper->ask(
-            $input,
-            $output,
-            new ChoiceQuestion('Введите ID продукта: ', array_column($productLines, 'id'))
-        );
+        $productId = (string)$helper->ask($input, $output, new ChoiceQuestion('Введите ID продукта: ', array_column($productLines, 'id')));
 
         // займ
 
         $loan = $this->useCase->issueLoan($clientId, $productId);
 
         $output->writeln('');
-        $output->writeln('Займ выдан ID [' . $loan->getId() . ']');
+        $output->writeln('Займ выдан ID [' . $loan->getId()->getValue() . ']');
 
         $loanLines = LoanCaster::batchCastToArray([$loan]);
 

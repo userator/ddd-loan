@@ -24,8 +24,8 @@ class ClientCaster
     public static function batchCastToArray(array $entities): array
     {
         return array_map(
-            fn(Client $entity) => [
-                'id' => $entity->getId(),
+            static fn(Client $entity) => [
+                'id' => $entity->getId()->getValue(),
                 'lastName' => $entity->getLastName(),
                 'name' => $entity->getName(),
                 'age' => $entity->getAge(),
