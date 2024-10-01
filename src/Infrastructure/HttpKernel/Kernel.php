@@ -11,17 +11,17 @@ class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 
-    private function getRepositoryDir(): string
+    public function getRepositoryDir(): string
     {
         return $this->getProjectDir() . '/var/repository';
     }
 
-    private function getSmsDir(): string
+    public function getSmsDir(): string
     {
         return $this->getProjectDir() . '/var/sms';
     }
 
-    private function getEmailDir(): string
+    public function getEmailDir(): string
     {
         return $this->getProjectDir() . '/var/email';
     }
