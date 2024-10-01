@@ -14,7 +14,7 @@ class Phone
         private string $value,
     ) {
         if (false === (bool)preg_match(self::PHONE_REGEX, $this->value)) {
-            throw new DomainException(sprintf('Invalid city [%s]', $this->value));
+            throw new DomainException(sprintf('Invalid phone [%s]', $this->value));
         }
     }
 
