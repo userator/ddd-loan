@@ -22,3 +22,6 @@ stan:
 
 phpunit:
 	docker compose exec -i php ./vendor/bin/phpunit --configuration=phpunit.xml.dist
+
+rector:
+	docker compose exec -i php ./vendor/bin/rector --config=rector.php
