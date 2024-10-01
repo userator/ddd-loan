@@ -45,7 +45,11 @@ class Address
     }
 
     /**
-     * @param array<mixed> $data
+     * @param array{
+     *     city?:string,
+     *     state?:string,
+     *     zip?:string,
+     * } $data
      * @throws DomainException
      */
     public static function createFromArray(array $data): self

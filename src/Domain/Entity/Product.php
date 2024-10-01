@@ -17,7 +17,13 @@ class Product
     }
 
     /**
-     * @param array<mixed> $data
+     * @param array{
+     *      id?:string,
+     *      name?:string,
+     *      term?:int,
+     *      interestRate?:float,
+     *      amount?:int,
+     *  } $data
      * @throws DomainException
      */
     public static function createFromArray(array $data): self

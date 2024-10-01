@@ -30,7 +30,20 @@ class Client
     }
 
     /**
-     * @param array<mixed> $data
+     * @param array{
+     *      id?:string,
+     *      lastName?:string,
+     *      name?:string,
+     *      age?:int,
+     *      city?:string,
+     *      state?:string,
+     *      zip?:string,
+     *      ssn?:string,
+     *      fico?:int,
+     *      email?:string,
+     *      phone?:string,
+     *      monthIncome?:int,
+     *  } $data
      * @throws DomainException
      */
     public static function createFromArray(array $data): self
