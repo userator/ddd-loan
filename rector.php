@@ -8,6 +8,7 @@ use Rector\Php82\Rector\Class_\ReadOnlyClassRector;
 
 return RectorConfig::configure()
     ->withPaths([
+        __DIR__ . '/bin',
         __DIR__ . '/config',
         __DIR__ . '/public',
         __DIR__ . '/src',
