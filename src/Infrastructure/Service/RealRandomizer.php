@@ -9,6 +9,6 @@ class RealRandomizer implements Randomizer
 
     public function randomize(): bool
     {
-        return (bool)rand(0, 1);
+        return (bool)random_int(0, 1);
     }
 }
