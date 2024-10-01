@@ -95,3 +95,9 @@ make stan
 ```bash
 make phpunit
 ```
+
+Запустить ректор-процессинг
+
+```bash
+make rector
+```
