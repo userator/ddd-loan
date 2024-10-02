@@ -34,7 +34,7 @@ class LoanIssue extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /**
-         * @var QuestionHelper
+         * @var QuestionHelper $helper
          */
         $helper = $this->getHelper('question');
 

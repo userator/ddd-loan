@@ -18,11 +18,11 @@ class ProductCreate
 
     /**
      * @param array{
-     *     name:string,
-     *     term:int,
-     *     interestRate:float,
-     *     amount:int,
-     *  } $data
+     *     name?:string,
+     *     term?:int,
+     *     interestRate?:float,
+     *     amount?:int,
+     * } $data
      * @throws ApplicationException
      */
     public function createProduct(array $data): Product

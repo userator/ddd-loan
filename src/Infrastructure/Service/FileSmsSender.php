@@ -12,6 +12,9 @@ class FileSmsSender implements SmsSender
     ) {
     }
 
+    /**
+     * @throws InfrastructureException
+     */
     public function sendSms(string $phone, string $message): void
     {
         $content = json_encode(func_get_args(), JSON_UNESCAPED_UNICODE);

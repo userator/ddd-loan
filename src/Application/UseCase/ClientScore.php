@@ -7,6 +7,7 @@ use App\Domain\Entity\Client;
 use App\Domain\Repository\ClientRepository;
 use App\Domain\Service\Randomizer;
 use App\Domain\ValueObject\Id;
+use Throwable;
 
 class ClientScore
 {
@@ -36,7 +37,11 @@ class ClientScore
      */
     public function scoreClient(string $clientId): bool
     {
-        $client = $this->repository->findById(new Id($clientId));
+        try {
+            $client = $this->repository->findById(new Id($clientId));
+        } catch (Throwable $exception) {
+            throw new ApplicationException(sprintf('Клиент не найден по ID [%s]', $clientId), $exception);
+        }
 
         if (null === $client) {
             throw new ApplicationException(sprintf('Клиент не найден по ID [%s]', $clientId));

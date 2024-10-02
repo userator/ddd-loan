@@ -12,6 +12,9 @@ class FileEmailSender implements EmailSender
     ) {
     }
 
+    /**
+     * @throws InfrastructureException
+     */
     public function sendEmail(string $from, string $to, string $subject, string $text): void
     {
         $content = json_encode(func_get_args(), JSON_UNESCAPED_UNICODE);

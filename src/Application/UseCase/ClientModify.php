@@ -35,7 +35,11 @@ class ClientModify
      */
     public function findClient(string $clientId): Client
     {
-        $client = $this->repository->findById(new Id($clientId));
+        try {
+            $client = $this->repository->findById(new Id($clientId));
+        } catch (Throwable $exception) {
+            throw new ApplicationException(sprintf('Клиент не найден по ID [%s]', $clientId), $exception);
+        }
 
         if (null === $client) {
             throw new ApplicationException(sprintf('Клиент не найден по ID [%s]', $clientId));
@@ -46,18 +50,18 @@ class ClientModify
 
     /**
      * @param array{
-     *     lastName:string,
-     *     name:string,
-     *     age:int,
-     *     city:string,
-     *     state:string,
-     *     zip:string,
-     *     ssn:string,
-     *     fico:int,
-     *     phone:string,
-     *     email:string,
-     *     monthIncome:int,
-     *  } $data
+     *     lastName?:string,
+     *     name?:string,
+     *     age?:int,
+     *     city?:string,
+     *     state?:string,
+     *     zip?:string,
+     *     ssn?:string,
+     *     fico?:int,
+     *     email?:string,
+     *     phone?:string,
+     *     monthIncome?:int,
+     * } $data
      * @throws ApplicationException
      */
     public function modifyClient(string $clientId, array $data): Client

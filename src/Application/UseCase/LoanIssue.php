@@ -3,7 +3,6 @@
 namespace App\Application\UseCase;
 
 use App\Application\Exception\ApplicationException;
-use App\Application\Factory\LoanFactory;
 use App\Application\Service\EventDispatcher;
 use App\Domain\Entity\Client;
 use App\Domain\Entity\Loan;
@@ -12,8 +11,6 @@ use App\Domain\Event\LoanIssued;
 use App\Domain\Repository\ClientRepository;
 use App\Domain\Repository\LoanRepository;
 use App\Domain\Repository\ProductRepository;
-use App\Domain\Service\LoanIssuer;
-use App\Domain\Service\LoanOfferer;
 use App\Domain\Service\Randomizer;
 use App\Domain\Service\UuidGenerator;
 use App\Domain\ValueObject\Id;
@@ -66,13 +63,21 @@ class LoanIssue
      */
     public function issueLoan(string $clientId, string $productId): Loan
     {
-        $client = $this->clientRepository->findById(new Id($clientId));
+        try {
+            $client = $this->clientRepository->findById(new Id($clientId));
+        } catch (Throwable $exception) {
+            throw new ApplicationException(sprintf('Клиент не найден по ID [%s]', $clientId), $exception);
+        }
 
         if (null === $client) {
             throw new ApplicationException('Клиент не найден');
         }
 
-        $product = $this->productRepository->findById(new Id($productId));
+        try {
+            $product = $this->productRepository->findById(new Id($productId));
+        } catch (Throwable $exception) {
+            throw new ApplicationException(sprintf('Продукт не найден по ID [%s]', $productId), $exception);
+        }
 
         if (null === $product) {
             throw new ApplicationException('Продукт не найден');

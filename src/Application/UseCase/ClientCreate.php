@@ -18,17 +18,17 @@ class ClientCreate
 
     /**
      * @param array{
-     *     lastName:string,
-     *     name:string,
-     *     age:int,
-     *     city:string,
-     *     state:string,
-     *     zip:string,
-     *     ssn:string,
-     *     fico:int,
-     *     phone:string,
-     *     email:string,
-     *     monthIncome:int,
+     *     lastName?:string,
+     *     name?:string,
+     *     age?:int,
+     *     city?:string,
+     *     state?:string,
+     *     zip?:string,
+     *     ssn?:string,
+     *     fico?:int,
+     *     email?:string,
+     *     phone?:string,
+     *     monthIncome?:int,
      * } $data
      * @throws ApplicationException
      */
