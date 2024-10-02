@@ -21,7 +21,7 @@
     "fakerphp/faker": "1.23.*",
     "phpstan/phpstan": "1.12.*",
     "phpunit/phpunit": "11.3.*",
-    "qossmic/deptrac": "^2.0",
+    "qossmic/deptrac": "2.0.*",
     "rector/rector": "1.2.*"
   },
   "config": {
