@@ -96,8 +96,14 @@ make stan
 make phpunit
 ```
 
-Запустить ректор-процессинг
+Запустить rector-процессинг
 
 ```bash
 make rector
+```
+
+Запустить deptrac-анализатор
+
+```bash
+make deptrac
 ```
