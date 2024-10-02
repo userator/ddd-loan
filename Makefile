@@ -25,3 +25,6 @@ phpunit:
 
 rector:
 	docker compose exec -i php ./vendor/bin/rector --config=rector.php
+
+deptrac:
+	docker compose exec -i php ./vendor/bin/deptrac --config-file=deptrac.yaml

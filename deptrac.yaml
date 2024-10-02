@@ -1,0 +1,38 @@
+deptrac:
+  paths:
+    - ./src/
+  layers:
+    - name: Application
+      collectors:
+        - type: classLike
+          value: App\\Application\\*
+    - name: Domain
+      collectors:
+        - type: classLike
+          value: App\\Domain\\*
+    - name: Infrastructure
+      collectors:
+        - type: classLike
+          value: App\\Infrastructure\\*
+        - type: classLike
+          value: Symfony\\*
+        - type: classLike
+          value: Psr\\*
+        - type: classLike
+          value: Faker\\*
+    - name: Presentation
+      collectors:
+        - type: classLike
+          value: App\\Presentation\\*
+  ruleset:
+    Domain: ~
+    Application:
+      - Domain
+      - Infrastructure
+    Infrastructure:
+      - Domain
+      - Application
+    Presentation:
+      - Domain
+      - Application
+      - Infrastructure
