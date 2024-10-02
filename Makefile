@@ -27,4 +27,4 @@ rector:
 	docker compose exec -i php ./vendor/bin/rector process --config=rector.php
 
 deptrac:
-	docker compose exec -i php ./vendor/bin/deptrac analyse --config-file=deptrac.yaml
+	docker compose exec -i php ./vendor/bin/deptrac analyse --config-file=deptrac.yaml --report-uncovered

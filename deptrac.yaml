@@ -14,16 +14,26 @@ deptrac:
       collectors:
         - type: classLike
           value: App\\Infrastructure\\*
-        - type: classLike
-          value: Symfony\\*
-        - type: classLike
-          value: Psr\\*
-        - type: classLike
-          value: Faker\\*
+        - type: composer
+          composerPath: ./composer.json
+          composerLockPath: ./composer.lock
+          packages:
+            - symfony/dependency-injection
+            - symfony/framework-bundle
+            - symfony/http-kernel
+            - symfony/uid
+            - psr/event-dispatcher
+            - psr/log
     - name: Presentation
       collectors:
         - type: classLike
           value: App\\Presentation\\*
+        - type: composer
+          composerPath: ./composer.json
+          composerLockPath: ./composer.lock
+          packages:
+            - fakerphp/faker
+            - symfony/console
   ruleset:
     Domain: ~
     Application:
@@ -35,4 +45,3 @@ deptrac:
     Presentation:
       - Domain
       - Application
-      - Infrastructure
