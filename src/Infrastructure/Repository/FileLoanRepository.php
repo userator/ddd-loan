@@ -2,25 +2,35 @@
 
 namespace App\Infrastructure\Repository;
 
+use App\Application\Exception\InfrastructureException;
 use App\Domain\Entity\Loan;
 use App\Domain\Repository\LoanRepository;
 use App\Domain\ValueObject\Id;
-use App\Infrastructure\Trait\FilePersister;
+use App\Infrastructure\Service\FilePersister;
 
 class FileLoanRepository implements LoanRepository
 {
-    use FilePersister;
 
     public function __construct(
-        private string $path,
+        private FilePersister $persister,
     ) {
     }
 
+    public static function createFromPath(string $path): self
+    {
+        return new self(
+            new FilePersister($path),
+        );
+    }
+
+    /**
+     * @throws InfrastructureException
+     */
     public function findById(Id $id): ?Loan
     {
         return current(
             array_filter(
-                $this->read(),
+                $this->persister->read(),
                 static fn(Loan $item) => $id->getValue() === $item->getId()->getValue(),
             )
         ) ?: null;
@@ -28,15 +38,19 @@ class FileLoanRepository implements LoanRepository
 
     /**
      * @inheritDoc
+     * @throws InfrastructureException
      */
     public function findAll(): array
     {
-        return $this->read();
+        return $this->persister->read();
     }
 
+    /**
+     * @throws InfrastructureException
+     */
     public function save(Loan $entity): void
     {
-        $data = $this->read();
+        $data = $this->persister->read();
 
         $data[] = $entity;
 
@@ -49,6 +63,6 @@ class FileLoanRepository implements LoanRepository
             [],
         );
 
-        $this->write(array_values($data));
+        $this->persister->write(array_values($data));
     }
 }

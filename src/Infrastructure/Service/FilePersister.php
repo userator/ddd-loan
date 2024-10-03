@@ -1,16 +1,20 @@
 <?php
 
-namespace App\Infrastructure\Trait;
+namespace App\Infrastructure\Service;
 
 use App\Application\Exception\InfrastructureException;
 
-/**
- * @property string $path
- */
-trait FilePersister
+class FilePersister
 {
+
+    public function __construct(
+        private string $path,
+    ) {
+    }
+
     /**
      * @return array<object>
+     * @throws InfrastructureException
      */
     public function read(): array
     {
@@ -43,6 +47,7 @@ trait FilePersister
 
     /**
      * @param array<object> $value
+     * @throws InfrastructureException
      */
     public function write(array $value): void
     {

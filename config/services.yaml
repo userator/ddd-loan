@@ -11,13 +11,12 @@ services:
       - '../src/Domain/Entity/*'
       - '../src/Domain/Event/*'
       - '../src/Domain/Exception/*'
-      - '../src/Domain/Repository/*'
       - '../src/Domain/ValueObject/*'
       - '../src/Domain/Service/FakeRandomizer.php'
       - '../src/Application/Exception/*'
-      - '../src/Application/Enum/*'
       - '../src/Infrastructure/Exception/*'
       - '../src/Infrastructure/HttpKernel/Kernel.php'
+      - '../src/Infrastructure/Service/FilePersister.php'
 
   # event-dispatcher
 
@@ -47,14 +46,17 @@ services:
   # repositories
 
   App\Infrastructure\Repository\FileClientRepository:
+    factory: [ null, 'createFromPath' ]
     arguments:
       $path: '%kernel.project_dir%/var/repository/client.txt'
 
   App\Infrastructure\Repository\FileLoanRepository:
+    factory: [ null, 'createFromPath' ]
     arguments:
       $path: '%kernel.project_dir%/var/repository/loan.txt'
 
   App\Infrastructure\Repository\FileProductRepository:
+    factory: [ null, 'createFromPath' ]
     arguments:
       $path: '%kernel.project_dir%/var/repository/product.txt'
 
