@@ -27,6 +27,22 @@ class Client
     ) {
         $this->lastName = trim($this->lastName);
         $this->name = trim($this->name);
+
+        if (0 >= $this->age) {
+            throw new DomainException(sprintf('Некорректный возраст [%s], должен быть больше 0', $this->age));
+        }
+
+        if (0 >= $this->monthIncome) {
+            throw new DomainException(sprintf('Некорректный месячный доход [%s], должен быть больше 0', $this->monthIncome));
+        }
+
+        if ('' === $this->lastName) {
+            throw new DomainException(sprintf('Некорректная фамилия [%s], должен быть более 0 символов', $this->lastName));
+        }
+
+        if ('' === $this->name) {
+            throw new DomainException(sprintf('Некорректное имя [%s], должно быть более 0 символов', $this->name));
+        }
     }
 
     /**
