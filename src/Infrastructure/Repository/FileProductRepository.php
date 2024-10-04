@@ -28,12 +28,7 @@ class FileProductRepository implements ProductRepository
      */
     public function findById(Id $id): ?Product
     {
-        return current(
-            array_filter(
-                $this->persister->read(),
-                static fn(Product $item) => $id->getValue() === $item->getId()->getValue(),
-            )
-        ) ?: null;
+        return $this->persister->read()[$id->getValue()] ?? null;
     }
 
     /**
@@ -42,7 +37,7 @@ class FileProductRepository implements ProductRepository
      */
     public function findAll(): array
     {
-        return $this->persister->read();
+        return array_values($this->persister->read());
     }
 
     /**
@@ -52,17 +47,8 @@ class FileProductRepository implements ProductRepository
     {
         $data = $this->persister->read();
 
-        $data[] = $entity;
+        $data[$entity->getId()->getValue()] = $entity;
 
-        $data = array_reduce(
-            $data,
-            function (array $lines, Product $line) {
-                $lines[$line->getId()->getValue()] = $line;
-                return $lines;
-            },
-            [],
-        );
-
-        $this->persister->write(array_values($data));
+        $this->persister->write($data);
     }
 }
