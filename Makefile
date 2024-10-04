@@ -12,7 +12,13 @@ stop:
 
 restart: stop start
 
-init: build stop start status
+env:
+	touch ./.env.local
+
+install:
+	docker compose exec -i php composer install
+
+init: build env start install status
 
 sh_php:
 	docker compose exec -i php bash
