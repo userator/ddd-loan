@@ -4,7 +4,8 @@ namespace App\Application\UseCase;
 
 use App\Application\Exception\ApplicationException;
 use App\Application\Service\EmailSender;
-use App\Domain\Event\LoanIssued;
+use App\Domain\Repository\LoanRepository;
+use App\Domain\ValueObject\Id;
 use Throwable;
 
 class LoanEmailSend
@@ -15,25 +16,28 @@ class LoanEmailSend
 
     public function __construct(
         private EmailSender $emailSender,
+        private LoanRepository $repository,
     ) {
     }
 
     /**
      * @throws ApplicationException
      */
-    public function sendEmail(LoanIssued $event): void
+    public function sendEmail(string $loanId): void
     {
         try {
+            $loan = $this->repository->findById(new Id($loanId));
+
             $this->emailSender->sendEmail(
                 self::FROM,
-                $event->getLoan()->getClient()->getEmail()->getValue(),
+                $loan->getClient()->getEmail()->getValue(),
                 self::SUBJECT,
                 sprintf(
                     self::TEXT,
-                    $event->getLoan()->getClient()->getFullName(),
-                    $event->getLoan()->getProduct()->getName(),
-                    $event->getLoan()->getProduct()->getAmount(),
-                    $event->getLoan()->calcInterestRate(),
+                    $loan->getClient()->getFullName(),
+                    $loan->getProduct()->getName(),
+                    $loan->getProduct()->getAmount(),
+                    $loan->calcInterestRate(),
                 ),
             );
         } catch (Throwable $exception) {

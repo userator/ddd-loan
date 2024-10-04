@@ -96,7 +96,7 @@ class LoanIssue
 
             $this->loanRepository->save($loan);
 
-            $this->dispatcher->dispatch(new LoanIssued($loan));
+            $this->dispatcher->dispatch(new LoanIssued($loan->getId()->getValue()));
 
             return $loan;
         } catch (Throwable $exception) {

@@ -18,7 +18,7 @@ class SendSmsNotification
     public function __invoke(LoanIssued $event): void
     {
         try {
-            $this->useCase->sendSms($event);
+            $this->useCase->sendSms($event->getLoanId());
         } catch (Throwable $exception) {
             $this->logger->error(
                 $exception->getMessage(),

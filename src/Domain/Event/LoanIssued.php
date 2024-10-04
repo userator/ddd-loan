@@ -2,18 +2,15 @@
 
 namespace App\Domain\Event;
 
-use App\Domain\Entity\Loan;
-
 class LoanIssued
 {
     public function __construct(
-        private Loan $loan,
+        private string $loanId,
     ) {
     }
 
-    public function getLoan(): Loan
+    public function getLoanId(): string
     {
-        return $this->loan;
+        return $this->loanId;
     }
-
 }

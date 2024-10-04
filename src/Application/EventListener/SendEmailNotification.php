@@ -18,7 +18,7 @@ class SendEmailNotification
     public function __invoke(LoanIssued $event): void
     {
         try {
-            $this->useCase->sendEmail($event);
+            $this->useCase->sendEmail($event->getLoanId());
         } catch (Throwable $exception) {
             $this->logger->error(
                 $exception->getMessage(),
