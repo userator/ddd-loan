@@ -23,6 +23,9 @@ init: build env start install status
 sh_php:
 	docker compose exec -i php bash
 
+sh_postgres:
+	docker compose exec -i postgres bash
+
 stan:
 	docker compose exec -i php ./vendor/bin/phpstan analyse --configuration=phpstan.dist.neon
 

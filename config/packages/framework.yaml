@@ -8,3 +8,9 @@ framework:
     storage_factory_id: session.storage.factory.mock_file
   router:
     strict_requirements: null
+  cache:
+    pools:
+      doctrine.result_cache_pool:
+        adapter: cache.app
+      doctrine.system_cache_pool:
+        adapter: cache.system
