@@ -18,7 +18,12 @@ env:
 install:
 	docker compose exec -i php composer install
 
-init: build env start install status
+migrate:
+	docker compose exec -i php ./bin/console doctrine:migrations:sync-metadata-storage --no-interaction
+	docker compose exec -i php ./bin/console doctrine:migrations:migrate --no-interaction
+	docker compose exec -i php ./bin/console doctrine:migrations:status --no-interaction
+
+init: build env start install migrate status
 
 sh_php:
 	docker compose exec -i php bash

@@ -14,6 +14,7 @@ class LoanDtoFactory
             $entity->getClient()->getId()->getValue(),
             $entity->getProduct()->getId()->getValue(),
             $entity->calcInterestRate(),
+            $entity->getIssuedAt()->format(LoanDto::ISSUED_AT_FORMAT),
         );
     }
 

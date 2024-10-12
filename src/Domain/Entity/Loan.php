@@ -3,6 +3,7 @@
 namespace App\Domain\Entity;
 
 use App\Domain\ValueObject\Id;
+use DateTimeImmutable;
 
 final class Loan
 {
@@ -13,6 +14,7 @@ final class Loan
         private Id $id,
         private Client $client,
         private Product $product,
+        private DateTimeImmutable $issuedAt,
     ) {
     }
 
@@ -29,6 +31,11 @@ final class Loan
     public function getProduct(): Product
     {
         return $this->product;
+    }
+
+    public function getIssuedAt(): DateTimeImmutable
+    {
+        return $this->issuedAt;
     }
 
     // business logic

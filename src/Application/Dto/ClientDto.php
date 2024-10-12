@@ -9,7 +9,7 @@ class ClientDto
     public function __construct(
         private string $id,
         private string $lastName,
-        private string $name,
+        private string $firstName,
         private string $birthday,
         private string $city,
         private string $state,
@@ -34,9 +34,9 @@ class ClientDto
         return $this->lastName;
     }
 
-    public function getName(): string
+    public function getFirstName(): string
     {
-        return $this->name;
+        return $this->firstName;
     }
 
     public function getBirthday(): string

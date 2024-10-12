@@ -18,6 +18,7 @@ use App\Domain\Repository\ProductRepository;
 use App\Domain\Service\ScoreRandomizer;
 use App\Domain\Service\UuidGenerator;
 use App\Domain\ValueObject\Id;
+use DateTimeImmutable;
 use Throwable;
 
 class LoanIssue
@@ -96,6 +97,7 @@ class LoanIssue
                 new Id($this->uuidGenerator->generate()),
                 $client,
                 $product,
+                new DateTimeImmutable(),
             );
 
             $this->loanRepository->save($loan);

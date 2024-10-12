@@ -4,11 +4,14 @@ namespace App\Application\Dto;
 
 final class LoanDto
 {
+    public const ISSUED_AT_FORMAT = 'd.m.Y H:i:s';
+
     public function __construct(
         private string $id,
         private string $clientId,
         private string $productId,
         private float $interestRate,
+        private string $issuedAt,
     ) {
     }
 
@@ -34,6 +37,11 @@ final class LoanDto
         return $this->interestRate;
     }
 
+    public function getIssuedAt(): string
+    {
+        return $this->issuedAt;
+    }
+
     // business logic
 
     /**
@@ -42,6 +50,7 @@ final class LoanDto
      *     client:string,
      *     product:string,
      *     interestRate:float,
+     *     issuedAt:string,
      * }
      */
     public function castToArray(): array

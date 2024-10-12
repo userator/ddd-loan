@@ -17,7 +17,7 @@ class Client
     public function __construct(
         private Id $id,
         private string $lastName,
-        private string $name,
+        private string $firstName,
         private DateTimeImmutable $birthday,
         private Address $address,
         private Ssn $ssn,
@@ -27,7 +27,7 @@ class Client
         private int $monthIncome,
     ) {
         $this->lastName = trim($this->lastName);
-        $this->name = trim($this->name);
+        $this->firstName = trim($this->firstName);
 
         if (0 >= $this->birthday->diff(new DateTimeImmutable())->y) {
             throw new DomainException(sprintf('Некорректный день рождения [%s], должен быть больше 0', $this->birthday->diff(new DateTimeImmutable())->y));
@@ -41,8 +41,8 @@ class Client
             throw new DomainException(sprintf('Некорректная фамилия [%s], должен быть более 0 символов', $this->lastName));
         }
 
-        if ('' === $this->name) {
-            throw new DomainException(sprintf('Некорректное имя [%s], должно быть более 0 символов', $this->name));
+        if ('' === $this->firstName) {
+            throw new DomainException(sprintf('Некорректное имя [%s], должно быть более 0 символов', $this->firstName));
         }
     }
 
@@ -50,7 +50,7 @@ class Client
      * @param array{
      *      id?:string,
      *      lastName?:string,
-     *      name?:string,
+     *      firstName?:string,
      *      birthday?:string,
      *      city?:string,
      *      state?:string,
@@ -68,7 +68,7 @@ class Client
         if (!isset(
             $data['id'],
             $data['lastName'],
-            $data['name'],
+            $data['firstName'],
             $data['birthday'],
             $data['ssn'],
             $data['fico'],
@@ -82,7 +82,7 @@ class Client
         return new self(
             new Id((string)$data['id']),
             (string)$data['lastName'],
-            (string)$data['name'],
+            (string)$data['firstName'],
             DateTimeImmutable::createFromFormat('d.m.Y', (string)$data['birthday']),
             Address::createFromArray($data),
             new Ssn((string)$data['ssn']),
@@ -105,9 +105,9 @@ class Client
         return $this->lastName;
     }
 
-    public function getName(): string
+    public function getFirstName(): string
     {
-        return $this->name;
+        return $this->firstName;
     }
 
     public function getBirthday(): DateTimeImmutable
@@ -149,7 +149,7 @@ class Client
 
     public function buildFullName(): string
     {
-        return $this->name . ' ' . $this->lastName;
+        return $this->firstName . ' ' . $this->lastName;
     }
 
     public function calcAge(): int

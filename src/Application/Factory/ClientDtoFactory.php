@@ -12,7 +12,7 @@ class ClientDtoFactory
         return new ClientDto(
             $entity->getId()->getValue(),
             $entity->getLastName(),
-            $entity->getName(),
+            $entity->getFirstName(),
             $entity->getBirthday()->format(ClientDto::BIRTHDAY_FORMAT),
             $entity->getAddress()->getCity(),
             $entity->getAddress()->getState(),
