@@ -2,8 +2,8 @@
 
 namespace App\Infrastructure\Service;
 
-use App\Application\Exception\InfrastructureException;
 use App\Domain\Service\Randomizer;
+use App\Infrastructure\Exception\InfrastructureException;
 use Throwable;
 
 class RealRandomizer implements Randomizer

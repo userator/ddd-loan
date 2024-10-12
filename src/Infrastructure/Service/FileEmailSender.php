@@ -2,8 +2,8 @@
 
 namespace App\Infrastructure\Service;
 
-use App\Application\Exception\InfrastructureException;
 use App\Application\Service\EmailSender;
+use App\Infrastructure\Exception\InfrastructureException;
 
 class FileEmailSender implements EmailSender
 {

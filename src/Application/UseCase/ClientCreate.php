@@ -2,7 +2,9 @@
 
 namespace App\Application\UseCase;
 
+use App\Application\Dto\ClientDto;
 use App\Application\Exception\ApplicationException;
+use App\Application\Factory\ClientDtoFactory;
 use App\Domain\Entity\Client;
 use App\Domain\Repository\ClientRepository;
 use App\Domain\Service\UuidGenerator;
@@ -32,7 +34,7 @@ class ClientCreate
      * } $data
      * @throws ApplicationException
      */
-    public function createClient(array $data): Client
+    public function createClient(array $data): ClientDto
     {
         try {
             $client = Client::createFromArray(
@@ -41,7 +43,7 @@ class ClientCreate
 
             $this->repository->save($client);
 
-            return $client;
+            return ClientDtoFactory::createFromEntity($client);
         } catch (Throwable $exception) {
             throw new ApplicationException($exception->getMessage(), $exception);
         }

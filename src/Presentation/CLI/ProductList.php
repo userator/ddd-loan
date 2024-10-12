@@ -2,8 +2,8 @@
 
 namespace App\Presentation\CLI;
 
+use App\Application\Dto\ProductDto;
 use App\Application\UseCase\ProductList as ProductListUseCase;
-use App\Presentation\Tool\ProductCaster;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
@@ -27,7 +27,8 @@ class ProductList extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $productLines = ProductCaster::batchCastToArray(
+        $productLines = array_map(
+            fn(ProductDto $dto) => $dto->castToArray(),
             $this->useCase->listProducts(),
         );
 

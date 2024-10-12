@@ -43,5 +43,4 @@ deptrac:
       - Domain
       - Application
     Presentation:
-      - Domain
       - Application

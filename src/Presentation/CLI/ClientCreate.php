@@ -3,7 +3,6 @@
 namespace App\Presentation\CLI;
 
 use App\Application\UseCase\ClientCreate as ClientCreateUseCase;
-use App\Presentation\Tool\ClientCaster;
 use Faker\Factory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -52,9 +51,9 @@ class ClientCreate extends Command
         ]);
 
         $output->writeln('');
-        $output->writeln('Создан пользователь с ID [' . $client->getId()->getValue() . ']');
+        $output->writeln('Создан пользователь с ID [' . $client->getId() . ']');
 
-        $clientLines = ClientCaster::batchCastToArray([$client]);
+        $clientLines = [$client->castToArray()];
 
         (new Table($output))
             ->setHeaders(array_keys(current($clientLines)))

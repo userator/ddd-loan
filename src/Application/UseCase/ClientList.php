@@ -2,8 +2,9 @@
 
 namespace App\Application\UseCase;
 
+use App\Application\Dto\ClientDto;
 use App\Application\Exception\ApplicationException;
-use App\Domain\Entity\Client;
+use App\Application\Factory\ClientDtoFactory;
 use App\Domain\Repository\ClientRepository;
 
 class ClientList
@@ -14,7 +15,7 @@ class ClientList
     }
 
     /**
-     * @return Client[]
+     * @return ClientDto[]
      * @throws ApplicationException
      */
     public function listClients(): array
@@ -25,6 +26,6 @@ class ClientList
             throw new ApplicationException('Клиентов не найдено');
         }
 
-        return $clients;
+        return ClientDtoFactory::createFromEntities($clients);
     }
 }

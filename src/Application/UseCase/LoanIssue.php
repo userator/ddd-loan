@@ -2,11 +2,15 @@
 
 namespace App\Application\UseCase;
 
+use App\Application\Dto\ClientDto;
+use App\Application\Dto\LoanDto;
+use App\Application\Dto\ProductDto;
 use App\Application\Exception\ApplicationException;
+use App\Application\Factory\ClientDtoFactory;
+use App\Application\Factory\LoanDtoFactory;
+use App\Application\Factory\ProductDtoFactory;
 use App\Application\Service\EventDispatcher;
-use App\Domain\Entity\Client;
 use App\Domain\Entity\Loan;
-use App\Domain\Entity\Product;
 use App\Domain\Event\LoanIssued;
 use App\Domain\Repository\ClientRepository;
 use App\Domain\Repository\LoanRepository;
@@ -29,7 +33,7 @@ class LoanIssue
     }
 
     /**
-     * @return Client[]
+     * @return ClientDto[]
      * @throws ApplicationException
      */
     public function findClients(): array
@@ -40,11 +44,11 @@ class LoanIssue
             throw new ApplicationException('Клиентов не найдено');
         }
 
-        return $clients;
+        return ClientDtoFactory::createFromEntities($clients);
     }
 
     /**
-     * @return Product[]
+     * @return ProductDto[]
      * @throws ApplicationException
      */
     public function findProducts(): array
@@ -55,13 +59,13 @@ class LoanIssue
             throw new ApplicationException('Продуктов не найдено');
         }
 
-        return $products;
+        return ProductDtoFactory::createFromEntities($products);
     }
 
     /**
      * @throws ApplicationException
      */
-    public function issueLoan(string $clientId, string $productId): Loan
+    public function issueLoan(string $clientId, string $productId): LoanDto
     {
         try {
             $client = $this->clientRepository->findById(new Id($clientId));
@@ -98,7 +102,7 @@ class LoanIssue
 
             $this->dispatcher->dispatch(new LoanIssued($loan->getId()->getValue()));
 
-            return $loan;
+            return LoanDtoFactory::createFromEntity($loan);
         } catch (Throwable $exception) {
             throw new ApplicationException($exception->getMessage(), $exception);
         }

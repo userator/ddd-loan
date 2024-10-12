@@ -2,8 +2,9 @@
 
 namespace App\Application\UseCase;
 
+use App\Application\Dto\ClientDto;
 use App\Application\Exception\ApplicationException;
-use App\Domain\Entity\Client;
+use App\Application\Factory\ClientDtoFactory;
 use App\Domain\Repository\ClientRepository;
 use App\Domain\Service\Randomizer;
 use App\Domain\ValueObject\Id;
@@ -18,7 +19,7 @@ class ClientScore
     }
 
     /**
-     * @return Client[]
+     * @return ClientDto[]
      * @throws ApplicationException
      */
     public function findClients(): array
@@ -29,7 +30,7 @@ class ClientScore
             throw new ApplicationException('Клиентов не найдено');
         }
 
-        return $clients;
+        return ClientDtoFactory::createFromEntities($clients);
     }
 
     /**

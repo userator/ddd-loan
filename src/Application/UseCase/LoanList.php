@@ -2,8 +2,9 @@
 
 namespace App\Application\UseCase;
 
+use App\Application\Dto\LoanDto;
 use App\Application\Exception\ApplicationException;
-use App\Domain\Entity\Loan;
+use App\Application\Factory\LoanDtoFactory;
 use App\Domain\Repository\LoanRepository;
 
 class LoanList
@@ -14,7 +15,7 @@ class LoanList
     }
 
     /**
-     * @return Loan[]
+     * @return LoanDto[]
      * @throws ApplicationException
      */
     public function listLoans(): array
@@ -25,6 +26,6 @@ class LoanList
             throw new ApplicationException('Займы не найдены');
         }
 
-        return $loans;
+        return LoanDtoFactory::createFromEntities($loans);
     }
 }

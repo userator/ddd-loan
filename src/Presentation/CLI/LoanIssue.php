@@ -2,10 +2,9 @@
 
 namespace App\Presentation\CLI;
 
+use App\Application\Dto\ClientDto;
+use App\Application\Dto\ProductDto;
 use App\Application\UseCase\LoanIssue as LoanIssueUseCase;
-use App\Presentation\Tool\ClientCaster;
-use App\Presentation\Tool\LoanCaster;
-use App\Presentation\Tool\ProductCaster;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Helper\Table;
@@ -40,7 +39,8 @@ class LoanIssue extends Command
 
         // клиент
 
-        $clientLines = ClientCaster::batchCastToArray(
+        $clientLines = array_map(
+            fn(ClientDto $dto) => $dto->castToArray(),
             $this->useCase->findClients(),
         );
 
@@ -53,7 +53,8 @@ class LoanIssue extends Command
 
         // продукт
 
-        $productLines = ProductCaster::batchCastToArray(
+        $productLines = array_map(
+            fn(ProductDto $dto) => $dto->castToArray(),
             $this->useCase->findProducts(),
         );
 
@@ -69,9 +70,9 @@ class LoanIssue extends Command
         $loan = $this->useCase->issueLoan($clientId, $productId);
 
         $output->writeln('');
-        $output->writeln('Займ выдан ID [' . $loan->getId()->getValue() . ']');
+        $output->writeln('Займ выдан ID [' . $loan->getId() . ']');
 
-        $loanLines = LoanCaster::batchCastToArray([$loan]);
+        $loanLines = [$loan->castToArray()];
 
         (new Table($output))
             ->setHeaders(array_keys(current($loanLines)))

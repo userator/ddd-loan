@@ -2,10 +2,10 @@
 
 namespace App\Infrastructure\Repository;
 
-use App\Application\Exception\InfrastructureException;
 use App\Domain\Entity\Loan;
 use App\Domain\Repository\LoanRepository;
 use App\Domain\ValueObject\Id;
+use App\Infrastructure\Exception\InfrastructureException;
 use App\Infrastructure\Service\FilePersister;
 
 class FileLoanRepository implements LoanRepository

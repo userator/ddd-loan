@@ -2,6 +2,7 @@
 
 namespace App\Application\UseCase;
 
+use App\Application\Dto\ProductDto;
 use App\Application\Exception\ApplicationException;
 use App\Domain\Entity\Product;
 use App\Domain\Repository\ProductRepository;
@@ -25,7 +26,7 @@ class ProductCreate
      * } $data
      * @throws ApplicationException
      */
-    public function createProduct(array $data): Product
+    public function createProduct(array $data): ProductDto
     {
         try {
             $product = Product::createFromArray(
@@ -34,7 +35,7 @@ class ProductCreate
 
             $this->repository->save($product);
 
-            return $product;
+            return ProductDto::createFromEntity($product);
         } catch (Throwable $exception) {
             throw new ApplicationException($exception->getMessage(), $exception);
         }

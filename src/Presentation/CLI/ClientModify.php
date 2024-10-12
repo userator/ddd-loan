@@ -2,8 +2,8 @@
 
 namespace App\Presentation\CLI;
 
+use App\Application\Dto\ClientDto;
 use App\Application\UseCase\ClientModify as ClientModifyUseCase;
-use App\Presentation\Tool\ClientCaster;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Helper\Table;
@@ -36,7 +36,8 @@ class ClientModify extends Command
          */
         $helper = $this->getHelper('question');
 
-        $clientLines = ClientCaster::batchCastToArray(
+        $clientLines = array_map(
+            fn(ClientDto $dto) => $dto->castToArray(),
             $this->useCase->listClients(),
         );
 
@@ -53,20 +54,20 @@ class ClientModify extends Command
             'lastName' => $helper->ask($input, $output, new Question('Введите фамилию (' . $client->getLastName() . '): ', $client->getLastName())),
             'name' => $helper->ask($input, $output, new Question('Введите имя: ' . $client->getName() . '): ', $client->getName())),
             'age' => $helper->ask($input, $output, new Question('Введите возраст: ' . $client->getAge() . '): ', $client->getAge())),
-            'city' => $helper->ask($input, $output, new Question('Введите город: ' . $client->getAddress()->getCity() . '): ', $client->getAddress()->getCity())),
-            'state' => $helper->ask($input, $output, new Question('Введите код штата: ' . $client->getAddress()->getState() . '): ', $client->getAddress()->getState())),
-            'zip' => $helper->ask($input, $output, new Question('Введите ZIP: ' . $client->getAddress()->getZip() . '): ', $client->getAddress()->getZip())),
-            'ssn' => $helper->ask($input, $output, new Question('Введите SSN: ' . $client->getSsn()->getValue() . '): ', $client->getSsn()->getValue())),
-            'fico' => $helper->ask($input, $output, new Question('Введите FICO: ' . $client->getFico()->getValue() . '): ', $client->getFico()->getValue())),
-            'email' => $helper->ask($input, $output, new Question('Введите емайл: ' . $client->getEmail()->getValue() . '): ', $client->getEmail()->getValue())),
-            'phone' => $helper->ask($input, $output, new Question('Введите тел. номер: ' . $client->getPhone()->getValue() . '): ', $client->getPhone()->getValue())),
+            'city' => $helper->ask($input, $output, new Question('Введите город: ' . $client->getCity() . '): ', $client->getCity())),
+            'state' => $helper->ask($input, $output, new Question('Введите код штата: ' . $client->getState() . '): ', $client->getState())),
+            'zip' => $helper->ask($input, $output, new Question('Введите ZIP: ' . $client->getZip() . '): ', $client->getZip())),
+            'ssn' => $helper->ask($input, $output, new Question('Введите SSN: ' . $client->getSsn() . '): ', $client->getSsn())),
+            'fico' => $helper->ask($input, $output, new Question('Введите FICO: ' . $client->getFico() . '): ', $client->getFico())),
+            'email' => $helper->ask($input, $output, new Question('Введите емайл: ' . $client->getEmail() . '): ', $client->getEmail())),
+            'phone' => $helper->ask($input, $output, new Question('Введите тел. номер: ' . $client->getPhone() . '): ', $client->getPhone())),
             'monthIncome' => $helper->ask($input, $output, new Question('Введите месячный доход: ' . $client->getMonthIncome() . '): ', $client->getMonthIncome())),
         ]);
 
         $output->writeln('');
-        $output->writeln('Модифицирован пользователь с ID [' . $client->getId()->getValue() . ']');
+        $output->writeln('Модифицирован пользователь с ID [' . $client->getId() . ']');
 
-        $clientLines = ClientCaster::batchCastToArray([$clientModified]);
+        $clientLines = [$clientModified->castToArray()];
 
         (new Table($output))
             ->setHeaders(array_keys(current($clientLines)))

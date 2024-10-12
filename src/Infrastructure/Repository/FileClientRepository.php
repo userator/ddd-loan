@@ -2,10 +2,10 @@
 
 namespace App\Infrastructure\Repository;
 
-use App\Application\Exception\InfrastructureException;
 use App\Domain\Entity\Client;
 use App\Domain\Repository\ClientRepository;
 use App\Domain\ValueObject\Id;
+use App\Infrastructure\Exception\InfrastructureException;
 use App\Infrastructure\Service\FilePersister;
 
 class FileClientRepository implements ClientRepository

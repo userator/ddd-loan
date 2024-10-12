@@ -2,10 +2,10 @@
 
 namespace App\Infrastructure\Repository;
 
-use App\Application\Exception\InfrastructureException;
 use App\Domain\Entity\Product;
 use App\Domain\Repository\ProductRepository;
 use App\Domain\ValueObject\Id;
+use App\Infrastructure\Exception\InfrastructureException;
 use App\Infrastructure\Service\FilePersister;
 
 class FileProductRepository implements ProductRepository

@@ -2,8 +2,8 @@
 
 namespace App\Presentation\CLI;
 
+use App\Application\Dto\LoanDto;
 use App\Application\UseCase\LoanList as LoanListUseCase;
-use App\Presentation\Tool\LoanCaster;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
@@ -27,7 +27,8 @@ class LoanList extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $loanLines = LoanCaster::batchCastToArray(
+        $loanLines = array_map(
+            fn(LoanDto $dto) => $dto->castToArray(),
             $this->useCase->listLoans(),
         );
 

@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\Service;
 
-use App\Application\Exception\InfrastructureException;
+use App\Infrastructure\Exception\InfrastructureException;
 
 class FilePersister
 {

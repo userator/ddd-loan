@@ -2,8 +2,8 @@
 
 namespace App\Presentation\CLI;
 
+use App\Application\Dto\ClientDto;
 use App\Application\UseCase\ClientList as ClientListUseCase;
-use App\Presentation\Tool\ClientCaster;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
@@ -27,7 +27,8 @@ class ClientList extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $clientLines = ClientCaster::batchCastToArray(
+        $clientLines = array_map(
+            fn(ClientDto $dto) => $dto->castToArray(),
             $this->useCase->listClients(),
         );
 

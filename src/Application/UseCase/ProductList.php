@@ -2,8 +2,9 @@
 
 namespace App\Application\UseCase;
 
+use App\Application\Dto\ProductDto;
 use App\Application\Exception\ApplicationException;
-use App\Domain\Entity\Product;
+use App\Application\Factory\ProductDtoFactory;
 use App\Domain\Repository\ProductRepository;
 
 class ProductList
@@ -14,7 +15,7 @@ class ProductList
     }
 
     /**
-     * @return Product[]
+     * @return ProductDto[]
      * @throws ApplicationException
      */
     public function listProducts(): array
@@ -25,6 +26,6 @@ class ProductList
             throw new ApplicationException('Продукты не найдены');
         }
 
-        return $products;
+        return ProductDtoFactory::createFromEntities($products);
     }
 }

@@ -2,7 +2,9 @@
 
 namespace App\Application\UseCase;
 
+use App\Application\Dto\ClientDto;
 use App\Application\Exception\ApplicationException;
+use App\Application\Factory\ClientDtoFactory;
 use App\Domain\Entity\Client;
 use App\Domain\Repository\ClientRepository;
 use App\Domain\ValueObject\Id;
@@ -16,7 +18,7 @@ class ClientModify
     }
 
     /**
-     * @return Client[]
+     * @return ClientDto[]
      * @throws ApplicationException
      */
     public function listClients(): array
@@ -27,13 +29,13 @@ class ClientModify
             throw new ApplicationException('Клиентов не найдено');
         }
 
-        return $clients;
+        return ClientDtoFactory::createFromEntities($clients);
     }
 
     /**
      * @throws ApplicationException
      */
-    public function findClient(string $clientId): Client
+    public function findClient(string $clientId): ClientDto
     {
         try {
             $client = $this->repository->findById(new Id($clientId));
@@ -45,7 +47,7 @@ class ClientModify
             throw new ApplicationException(sprintf('Клиент не найден по ID [%s]', $clientId));
         }
 
-        return $client;
+        return ClientDtoFactory::createFromEntity($client);
     }
 
     /**
@@ -64,7 +66,7 @@ class ClientModify
      * } $data
      * @throws ApplicationException
      */
-    public function modifyClient(string $clientId, array $data): Client
+    public function modifyClient(string $clientId, array $data): ClientDto
     {
         try {
             $client = Client::createFromArray(
@@ -73,7 +75,7 @@ class ClientModify
 
             $this->repository->save($client);
 
-            return $client;
+            return ClientDtoFactory::createFromEntity($client);
         } catch (Throwable $exception) {
             throw new ApplicationException($exception->getMessage(), $exception);
         }

@@ -3,7 +3,6 @@
 namespace App\Presentation\CLI;
 
 use App\Application\UseCase\ProductCreate as ProductCreateUseCase;
-use App\Presentation\Tool\ProductCaster;
 use Faker\Factory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -45,9 +44,9 @@ class ProductCreate extends Command
         ]);
 
         $output->writeln('');
-        $output->writeln('Создан продукт с ID [' . $product->getId()->getValue() . ']');
+        $output->writeln('Создан продукт с ID [' . $product->getId() . ']');
 
-        $productLines = ProductCaster::batchCastToArray([$product]);
+        $productLines = [$product->castToArray()];
 
         (new Table($output))
             ->setHeaders(array_keys(current($productLines)))

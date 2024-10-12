@@ -2,8 +2,8 @@
 
 namespace App\Presentation\CLI;
 
+use App\Application\Dto\ClientDto;
 use App\Application\UseCase\ClientScore as ClientScoreUseCase;
-use App\Presentation\Tool\ClientCaster;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Helper\Table;
@@ -34,7 +34,8 @@ class ClientScore extends Command
          */
         $helper = $this->getHelper('question');
 
-        $clientLines = ClientCaster::batchCastToArray(
+        $clientLines = array_map(
+            fn(ClientDto $dto) => $dto->castToArray(),
             $this->useCase->findClients(),
         );
 
