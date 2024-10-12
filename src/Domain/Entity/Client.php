@@ -3,13 +3,14 @@
 namespace App\Domain\Entity;
 
 use App\Domain\Exception\DomainException;
-use App\Domain\Service\Randomizer;
+use App\Domain\Service\ScoreRandomizer;
 use App\Domain\ValueObject\Address;
 use App\Domain\ValueObject\Email;
 use App\Domain\ValueObject\Fico;
 use App\Domain\ValueObject\Id;
 use App\Domain\ValueObject\Phone;
 use App\Domain\ValueObject\Ssn;
+use DateTimeImmutable;
 
 class Client
 {
@@ -17,7 +18,7 @@ class Client
         private Id $id,
         private string $lastName,
         private string $name,
-        private int $age,
+        private DateTimeImmutable $birthday,
         private Address $address,
         private Ssn $ssn,
         private Fico $fico,
@@ -28,8 +29,8 @@ class Client
         $this->lastName = trim($this->lastName);
         $this->name = trim($this->name);
 
-        if (0 >= $this->age) {
-            throw new DomainException(sprintf('Некорректный возраст [%s], должен быть больше 0', $this->age));
+        if (0 >= $this->birthday->diff(new DateTimeImmutable())->y) {
+            throw new DomainException(sprintf('Некорректный день рождения [%s], должен быть больше 0', $this->birthday->diff(new DateTimeImmutable())->y));
         }
 
         if (0 >= $this->monthIncome) {
@@ -50,7 +51,7 @@ class Client
      *      id?:string,
      *      lastName?:string,
      *      name?:string,
-     *      age?:int,
+     *      birthday?:string,
      *      city?:string,
      *      state?:string,
      *      zip?:string,
@@ -68,7 +69,7 @@ class Client
             $data['id'],
             $data['lastName'],
             $data['name'],
-            $data['age'],
+            $data['birthday'],
             $data['ssn'],
             $data['fico'],
             $data['email'],
@@ -82,7 +83,7 @@ class Client
             new Id((string)$data['id']),
             (string)$data['lastName'],
             (string)$data['name'],
-            (int)$data['age'],
+            DateTimeImmutable::createFromFormat('d.m.Y', (string)$data['birthday']),
             Address::createFromArray($data),
             new Ssn((string)$data['ssn']),
             new Fico((int)$data['fico']),
@@ -109,9 +110,9 @@ class Client
         return $this->name;
     }
 
-    public function getAge(): int
+    public function getBirthday(): DateTimeImmutable
     {
-        return $this->age;
+        return $this->birthday;
     }
 
     public function getAddress(): Address
@@ -146,9 +147,14 @@ class Client
 
     // business logic
 
-    public function getFullName(): string
+    public function buildFullName(): string
     {
         return $this->name . ' ' . $this->lastName;
+    }
+
+    public function calcAge(): int
+    {
+        return $this->birthday->diff(new DateTimeImmutable())->y;
     }
 
     /*
@@ -160,7 +166,7 @@ class Client
      * Кредит выдается только в штатах CA, NY, NV
      * Клиентам из NY рандомно отказываем.
      */
-    public function checkPossibility(Randomizer $randomizer): bool
+    public function score(ScoreRandomizer $randomizer): bool
     {
         if ($this->getFico()->getValue() <= 500) {
             return false;
@@ -170,7 +176,11 @@ class Client
             return false;
         }
 
-        if ($this->getAge() < 18 || $this->getAge() > 60) {
+        if ($this->calcAge() < 18) {
+            return false;
+        }
+
+        if ($this->calcAge() > 60) {
             return false;
         }
 

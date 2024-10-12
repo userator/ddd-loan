@@ -2,11 +2,11 @@
 
 namespace App\Infrastructure\Service;
 
-use App\Domain\Service\Randomizer;
+use App\Domain\Service\ScoreRandomizer;
 use App\Infrastructure\Exception\InfrastructureException;
 use Throwable;
 
-class RealRandomizer implements Randomizer
+class RealScoreRandomizer implements ScoreRandomizer
 {
 
     /**

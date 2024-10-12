@@ -54,7 +54,7 @@ class ClientModify
      * @param array{
      *     lastName?:string,
      *     name?:string,
-     *     age?:int,
+     *     birthday?:string,
      *     city?:string,
      *     state?:string,
      *     zip?:string,

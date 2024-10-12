@@ -2,9 +2,9 @@
 
 namespace App\Infrastructure\Service;
 
-use App\Domain\Service\Randomizer;
+use App\Domain\Service\ScoreRandomizer;
 
-class FakeRandomizer implements Randomizer
+class FakeScoreRandomizer implements ScoreRandomizer
 {
 
     public function __construct(

@@ -6,7 +6,7 @@ use App\Application\Dto\ClientDto;
 use App\Application\Exception\ApplicationException;
 use App\Application\Factory\ClientDtoFactory;
 use App\Domain\Repository\ClientRepository;
-use App\Domain\Service\Randomizer;
+use App\Domain\Service\ScoreRandomizer;
 use App\Domain\ValueObject\Id;
 use Throwable;
 
@@ -14,7 +14,7 @@ class ClientScore
 {
     public function __construct(
         private ClientRepository $repository,
-        private Randomizer $randomizer,
+        private ScoreRandomizer $randomizer,
     ) {
     }
 
@@ -48,6 +48,6 @@ class ClientScore
             throw new ApplicationException(sprintf('Клиент не найден по ID [%s]', $clientId));
         }
 
-        return $client->checkPossibility($this->randomizer);
+        return $client->score($this->randomizer);
     }
 }

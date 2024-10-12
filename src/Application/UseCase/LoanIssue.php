@@ -15,7 +15,7 @@ use App\Domain\Event\LoanIssued;
 use App\Domain\Repository\ClientRepository;
 use App\Domain\Repository\LoanRepository;
 use App\Domain\Repository\ProductRepository;
-use App\Domain\Service\Randomizer;
+use App\Domain\Service\ScoreRandomizer;
 use App\Domain\Service\UuidGenerator;
 use App\Domain\ValueObject\Id;
 use Throwable;
@@ -27,7 +27,7 @@ class LoanIssue
         private ProductRepository $productRepository,
         private LoanRepository $loanRepository,
         private EventDispatcher $dispatcher,
-        private Randomizer $randomizer,
+        private ScoreRandomizer $randomizer,
         private UuidGenerator $uuidGenerator,
     ) {
     }
@@ -87,7 +87,7 @@ class LoanIssue
             throw new ApplicationException('Продукт не найден');
         }
 
-        if (!$client->checkPossibility($this->randomizer)) {
+        if (!$client->score($this->randomizer)) {
             throw new ApplicationException('Нельзя выдать займ клиенту');
         }
 

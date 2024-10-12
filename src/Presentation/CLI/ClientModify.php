@@ -53,7 +53,7 @@ class ClientModify extends Command
         $clientModified = $this->useCase->modifyClient($clientId, [
             'lastName' => $helper->ask($input, $output, new Question('Введите фамилию (' . $client->getLastName() . '): ', $client->getLastName())),
             'name' => $helper->ask($input, $output, new Question('Введите имя: ' . $client->getName() . '): ', $client->getName())),
-            'age' => $helper->ask($input, $output, new Question('Введите возраст: ' . $client->getAge() . '): ', $client->getAge())),
+            'birthday' => $helper->ask($input, $output, new Question('Введите дату рождения (' . $client->getBirthday() . '): ', $client->getBirthday())),
             'city' => $helper->ask($input, $output, new Question('Введите город: ' . $client->getCity() . '): ', $client->getCity())),
             'state' => $helper->ask($input, $output, new Question('Введите код штата: ' . $client->getState() . '): ', $client->getState())),
             'zip' => $helper->ask($input, $output, new Question('Введите ZIP: ' . $client->getZip() . '): ', $client->getZip())),

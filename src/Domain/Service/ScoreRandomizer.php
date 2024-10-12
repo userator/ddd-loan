@@ -2,7 +2,7 @@
 
 namespace App\Domain\Service;
 
-interface Randomizer
+interface ScoreRandomizer
 {
     public function randomize(): bool;
 }

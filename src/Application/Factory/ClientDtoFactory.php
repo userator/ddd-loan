@@ -13,7 +13,7 @@ class ClientDtoFactory
             $entity->getId()->getValue(),
             $entity->getLastName(),
             $entity->getName(),
-            $entity->getAge(),
+            $entity->getBirthday()->format(ClientDto::BIRTHDAY_FORMAT),
             $entity->getAddress()->getCity(),
             $entity->getAddress()->getState(),
             $entity->getAddress()->getZip(),

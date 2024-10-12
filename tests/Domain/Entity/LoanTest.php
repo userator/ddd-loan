@@ -11,6 +11,7 @@ use App\Domain\ValueObject\Fico;
 use App\Domain\ValueObject\Id;
 use App\Domain\ValueObject\Phone;
 use App\Domain\ValueObject\Ssn;
+use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 
 class LoanTest extends TestCase
@@ -25,7 +26,7 @@ class LoanTest extends TestCase
                         new Id('550e8400-e29b-41d4-a716-446655440002'),
                         'Безфамильный',
                         'Нонейм',
-                        40,
+                        new DateTimeImmutable('-40 years'),
                         new Address(
                             'Unknown City',
                             'NY',
@@ -54,7 +55,7 @@ class LoanTest extends TestCase
                         new Id('550e8400-e29b-41d4-a716-446655440005'),
                         'Безфамильный',
                         'Нонейм',
-                        40,
+                        new DateTimeImmutable('-40 years'),
                         new Address(
                             'Unknown City',
                             'WA',

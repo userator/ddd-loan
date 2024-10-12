@@ -30,7 +30,7 @@ class LoanSmsSend
                 $loan->getClient()->getPhone()->getValue(),
                 sprintf(
                     self::TEXT,
-                    $loan->getClient()->getFullName(),
+                    $loan->getClient()->buildFullName(),
                     $loan->getProduct()->getName(),
                     $loan->getProduct()->getAmount(),
                     $loan->calcInterestRate(),

@@ -7,11 +7,13 @@ use App\Domain\Entity\Client as ClientEntity;
 
 class ClientDto
 {
+    public const BIRTHDAY_FORMAT = 'd.m.Y';
+
     public function __construct(
         private string $id,
         private string $lastName,
         private string $name,
-        private int $age,
+        private string $birthday,
         private string $city,
         private string $state,
         private string $zip,
@@ -29,7 +31,7 @@ class ClientDto
             $entity->getId()->getValue(),
             $entity->getLastName(),
             $entity->getName(),
-            $entity->getAge(),
+            $entity->getBirthday()->format(self::BIRTHDAY_FORMAT),
             $entity->getAddress()->getCity(),
             $entity->getAddress()->getState(),
             $entity->getAddress()->getZip(),
@@ -46,7 +48,7 @@ class ClientDto
      *      id?:string,
      *      lastName?:string,
      *      name?:string,
-     *      age?:int,
+     *      birthday?:string,
      *      city?:string,
      *      state?:string,
      *      zip?:string,
@@ -64,7 +66,7 @@ class ClientDto
             $data['id'],
             $data['lastName'],
             $data['name'],
-            $data['age'],
+            $data['birthday'],
             $data['city'],
             $data['state'],
             $data['zip'],
@@ -81,7 +83,7 @@ class ClientDto
             $data['id'],
             $data['lastName'],
             $data['name'],
-            $data['age'],
+            $data['birthday'],
             $data['city'],
             $data['state'],
             $data['zip'],
@@ -110,9 +112,9 @@ class ClientDto
         return $this->name;
     }
 
-    public function getAge(): int
+    public function getBirthday(): string
     {
-        return $this->age;
+        return $this->birthday;
     }
 
     public function getCity(): string
@@ -162,7 +164,7 @@ class ClientDto
      *     id:string,
      *     lastName:string,
      *     name:string,
-     *     age:int,
+     *     birthday:string,
      *     city:string,
      *     state:string,
      *     zip:string,

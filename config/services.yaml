@@ -70,10 +70,10 @@ services:
     alias: App\Infrastructure\Repository\FileProductRepository
 
   # randomizer
-  App\Infrastructure\Service\RealRandomizer: ~
+  App\Infrastructure\Service\RealScoreRandomizer: ~
 
-  App\Domain\Service\Randomizer:
-    alias: App\Infrastructure\Service\RealRandomizer
+  App\Domain\Service\ScoreRandomizer:
+    alias: App\Infrastructure\Service\RealScoreRandomizer
 
   # uuid generator
   App\Infrastructure\Service\RfcUuidGenerator: ~

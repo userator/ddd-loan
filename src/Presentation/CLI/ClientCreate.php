@@ -39,7 +39,7 @@ class ClientCreate extends Command
         $client = $this->useCase->createClient([
             'lastName' => $helper->ask($input, $output, new Question('Введите фамилию: ', $faker->lastName())),
             'name' => $helper->ask($input, $output, new Question('Введите имя: ', $faker->firstName())),
-            'age' => $helper->ask($input, $output, new Question('Введите возраст: ', $faker->numberBetween(18, 99))),
+            'birthday' => $helper->ask($input, $output, new Question('Введите дату рождения (dd.mm.yyyy): ', $faker->time('d.m.Y'))),
             'city' => $helper->ask($input, $output, new Question('Введите город: ', $faker->city())),
             'state' => $helper->ask($input, $output, new Question('Введите код штата (##): ', $faker->randomElement(['CA', 'NY', 'NV', 'WA']))),
             'zip' => $helper->ask($input, $output, new Question('Введите ZIP (#####): ', $faker->numberBetween(10000, 99999))),

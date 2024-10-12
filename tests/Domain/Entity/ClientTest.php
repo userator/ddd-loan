@@ -3,14 +3,15 @@
 namespace App\Tests\Domain\Entity;
 
 use App\Domain\Entity\Client;
-use App\Domain\Service\Randomizer;
+use App\Domain\Service\ScoreRandomizer;
 use App\Domain\ValueObject\Address;
 use App\Domain\ValueObject\Email;
 use App\Domain\ValueObject\Fico;
 use App\Domain\ValueObject\Id;
 use App\Domain\ValueObject\Phone;
 use App\Domain\ValueObject\Ssn;
-use App\Infrastructure\Service\FakeRandomizer;
+use App\Infrastructure\Service\FakeScoreRandomizer;
+use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 
 class ClientTest extends TestCase
@@ -23,7 +24,7 @@ class ClientTest extends TestCase
                     new Id('550e8400-e29b-41d4-a716-446655440000'),
                     'Безфамильный',
                     'Нонейм',
-                    40,
+                    new DateTimeImmutable('-40 years'),
                     new Address(
                         'Unknown City',
                         'CA',
@@ -35,7 +36,7 @@ class ClientTest extends TestCase
                     new Phone('333-333-4444'),
                     5000,
                 ),
-                'randomizer' => new FakeRandomizer(true),
+                'randomizer' => new FakeScoreRandomizer(true),
                 'result' => true,
             ],
             'fail credit score' => [
@@ -43,7 +44,7 @@ class ClientTest extends TestCase
                     new Id('550e8400-e29b-41d4-a716-446655440000'),
                     'Безфамильный',
                     'Нонейм',
-                    40,
+                    new DateTimeImmutable('-40 years'),
                     new Address(
                         'Unknown City',
                         'CA',
@@ -55,7 +56,7 @@ class ClientTest extends TestCase
                     new Phone('333-333-4444'),
                     5000,
                 ),
-                'randomizer' => new FakeRandomizer(true),
+                'randomizer' => new FakeScoreRandomizer(true),
                 'result' => false,
             ],
             'fail month income' => [
@@ -63,7 +64,7 @@ class ClientTest extends TestCase
                     new Id('550e8400-e29b-41d4-a716-446655440000'),
                     'Безфамильный',
                     'Нонейм',
-                    40,
+                    new DateTimeImmutable('-40 years'),
                     new Address(
                         'Unknown City',
                         'CA',
@@ -75,7 +76,7 @@ class ClientTest extends TestCase
                     new Phone('333-333-4444'),
                     100,
                 ),
-                'randomizer' => new FakeRandomizer(true),
+                'randomizer' => new FakeScoreRandomizer(true),
                 'result' => false,
             ],
             'fail age' => [
@@ -83,7 +84,7 @@ class ClientTest extends TestCase
                     new Id('550e8400-e29b-41d4-a716-446655440000'),
                     'Безфамильный',
                     'Нонейм',
-                    99,
+                    new DateTimeImmutable('-99 years'),
                     new Address(
                         'Unknown City',
                         'CA',
@@ -95,7 +96,7 @@ class ClientTest extends TestCase
                     new Phone('333-333-4444'),
                     5000,
                 ),
-                'randomizer' => new FakeRandomizer(true),
+                'randomizer' => new FakeScoreRandomizer(true),
                 'result' => false,
             ],
             'fail excluded state (WA)' => [
@@ -103,7 +104,7 @@ class ClientTest extends TestCase
                     new Id('550e8400-e29b-41d4-a716-446655440000'),
                     'Безфамильный',
                     'Нонейм',
-                    40,
+                    new DateTimeImmutable('-40 years'),
                     new Address(
                         'Unknown City',
                         'WA',
@@ -115,7 +116,7 @@ class ClientTest extends TestCase
                     new Phone('333-333-4444'),
                     5000,
                 ),
-                'randomizer' => new FakeRandomizer(true),
+                'randomizer' => new FakeScoreRandomizer(true),
                 'result' => false,
             ],
             'fail randomize state (NY)' => [
@@ -123,7 +124,7 @@ class ClientTest extends TestCase
                     new Id('550e8400-e29b-41d4-a716-446655440000'),
                     'Безфамильный',
                     'Нонейм',
-                    40,
+                    new DateTimeImmutable('-40 years'),
                     new Address(
                         'Unknown City',
                         'NY',
@@ -135,7 +136,7 @@ class ClientTest extends TestCase
                     new Phone('333-333-4444'),
                     5000,
                 ),
-                'randomizer' => new FakeRandomizer(false),
+                'randomizer' => new FakeScoreRandomizer(false),
                 'result' => false,
             ],
             'success randomize state (NY)' => [
@@ -143,7 +144,7 @@ class ClientTest extends TestCase
                     new Id('550e8400-e29b-41d4-a716-446655440000'),
                     'Безфамильный',
                     'Нонейм',
-                    40,
+                    new DateTimeImmutable('-40 years'),
                     new Address(
                         'Unknown City',
                         'NY',
@@ -155,7 +156,7 @@ class ClientTest extends TestCase
                     new Phone('333-333-4444'),
                     5000,
                 ),
-                'randomizer' => new FakeRandomizer(true),
+                'randomizer' => new FakeScoreRandomizer(true),
                 'result' => true,
             ],
         ];
@@ -164,8 +165,8 @@ class ClientTest extends TestCase
     /**
      * @dataProvider provideCheckPossibility()
      */
-    public function testCheckPossibility(Client $client, Randomizer $randomizer, bool $result): void
+    public function testCheckPossibility(Client $client, ScoreRandomizer $randomizer, bool $result): void
     {
-        $this->assertEquals($result, $client->checkPossibility($randomizer));
+        $this->assertEquals($result, $client->score($randomizer));
     }
 }
