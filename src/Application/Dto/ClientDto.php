@@ -2,9 +2,6 @@
 
 namespace App\Application\Dto;
 
-use App\Application\Exception\ApplicationException;
-use App\Domain\Entity\Client as ClientEntity;
-
 class ClientDto
 {
     public const BIRTHDAY_FORMAT = 'd.m.Y';
@@ -23,76 +20,6 @@ class ClientDto
         private string $phone,
         private int $monthIncome,
     ) {
-    }
-
-    public static function createFromEntity(ClientEntity $entity): self
-    {
-        return new self(
-            $entity->getId()->getValue(),
-            $entity->getLastName(),
-            $entity->getName(),
-            $entity->getBirthday()->format(self::BIRTHDAY_FORMAT),
-            $entity->getAddress()->getCity(),
-            $entity->getAddress()->getState(),
-            $entity->getAddress()->getZip(),
-            $entity->getSsn()->getValue(),
-            $entity->getFico()->getValue(),
-            $entity->getPhone()->getValue(),
-            $entity->getEmail()->getValue(),
-            $entity->getMonthIncome(),
-        );
-    }
-
-    /**
-     * @param array{
-     *      id?:string,
-     *      lastName?:string,
-     *      name?:string,
-     *      birthday?:string,
-     *      city?:string,
-     *      state?:string,
-     *      zip?:string,
-     *      ssn?:string,
-     *      fico?:int,
-     *      email?:string,
-     *      phone?:string,
-     *      monthIncome?:int,
-     *  } $data
-     * @throws ApplicationException
-     */
-    public static function createFromArray(array $data): self
-    {
-        if (!isset(
-            $data['id'],
-            $data['lastName'],
-            $data['name'],
-            $data['birthday'],
-            $data['city'],
-            $data['state'],
-            $data['zip'],
-            $data['ssn'],
-            $data['fico'],
-            $data['email'],
-            $data['phone'],
-            $data['monthIncome'],
-        )) {
-            throw new ApplicationException('Invalid argument');
-        }
-
-        return new self(
-            $data['id'],
-            $data['lastName'],
-            $data['name'],
-            $data['birthday'],
-            $data['city'],
-            $data['state'],
-            $data['zip'],
-            $data['ssn'],
-            $data['fico'],
-            $data['email'],
-            $data['phone'],
-            $data['monthIncome'],
-        );
     }
 
     // mutators

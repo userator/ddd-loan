@@ -4,6 +4,7 @@ namespace App\Application\UseCase;
 
 use App\Application\Dto\ProductDto;
 use App\Application\Exception\ApplicationException;
+use App\Application\Factory\ProductDtoFactory;
 use App\Domain\Entity\Product;
 use App\Domain\Repository\ProductRepository;
 use App\Domain\Service\UuidGenerator;
@@ -35,7 +36,7 @@ class ProductCreate
 
             $this->repository->save($product);
 
-            return ProductDto::createFromEntity($product);
+            return ProductDtoFactory::createFromEntity($product);
         } catch (Throwable $exception) {
             throw new ApplicationException($exception->getMessage(), $exception);
         }

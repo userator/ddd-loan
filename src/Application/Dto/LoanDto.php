@@ -2,8 +2,6 @@
 
 namespace App\Application\Dto;
 
-use App\Domain\Entity\Loan as LoanEntity;
-
 final class LoanDto
 {
     public function __construct(
@@ -12,16 +10,6 @@ final class LoanDto
         private string $productId,
         private float $interestRate,
     ) {
-    }
-
-    public static function createFromEntity(LoanEntity $entity): self
-    {
-        return new self(
-            $entity->getId()->getValue(),
-            $entity->getClient()->getId()->getValue(),
-            $entity->getProduct()->getId()->getValue(),
-            $entity->calcInterestRate(),
-        );
     }
 
     // mutators
