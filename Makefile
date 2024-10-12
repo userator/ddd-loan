@@ -29,7 +29,10 @@ stan:
 phpunit:
 	docker compose exec -i php ./vendor/bin/phpunit --configuration=phpunit.xml.dist
 
-rector:
+rector-scan:
+	docker compose exec -i php ./vendor/bin/rector process --config=rector.php --dry-run
+
+rector-fix:
 	docker compose exec -i php ./vendor/bin/rector process --config=rector.php
 
 deptrac:
