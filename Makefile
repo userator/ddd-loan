@@ -46,4 +46,4 @@ rector-fix:
 deptrac:
 	docker compose exec -i php ./vendor/bin/deptrac analyse --config-file=deptrac.yaml --report-uncovered
 
-check: stan deptrac phpunit
+check: stan rector-scan deptrac phpunit

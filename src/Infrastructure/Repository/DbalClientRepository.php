@@ -142,7 +142,7 @@ class DbalClientRepository implements ClientRepository
                     'firstname' => $entity->getFirstName(),
                     'lastname' => $entity->getLastName(),
                     'birthday' => $entity->getBirthday()->format(
-                        $this->connection->getDatabasePlatform()->getDateTimeFormatString()
+                        $this->connection->getDatabasePlatform()->getDateFormatString()
                     ),
                     'city' => $entity->getAddress()->getCity(),
                     'state' => $entity->getAddress()->getState(),

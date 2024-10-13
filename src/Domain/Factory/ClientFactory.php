@@ -51,7 +51,7 @@ class ClientFactory
             new Id((string)$data['id']),
             (string)$data['lastName'],
             (string)$data['firstName'],
-            DateTimeImmutable::createFromFormat('Y-m-d H:i:s', (string)$data['birthday']),
+            DateTimeImmutable::createFromFormat('Y-m-d', (string)$data['birthday']),
             Address::createFromArray($data),
             new Ssn((string)$data['ssn']),
             new Fico((int)$data['fico']),

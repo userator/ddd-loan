@@ -21,7 +21,7 @@ class ClientCreate
     /**
      * @param array{
      *     lastName?:string,
-     *     name?:string,
+     *     firstName?:string,
      *     birthday?:string,
      *     city?:string,
      *     state?:string,

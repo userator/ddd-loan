@@ -19,8 +19,8 @@ class ClientDtoFactory
             $entity->getAddress()->getZip(),
             $entity->getSsn()->getValue(),
             $entity->getFico()->getValue(),
-            $entity->getPhone()->getValue(),
             $entity->getEmail()->getValue(),
+            $entity->getPhone()->getValue(),
             $entity->getMonthIncome(),
         );
     }

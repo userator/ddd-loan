@@ -14,12 +14,6 @@ make init
 make sh_php
 ```
 
-Установка php-пакетов
-
-```bash
-composer install
-```
-
 ## Использование
 
 Создать новый продукт
@@ -84,7 +78,7 @@ ls -l ./var/sms
 
 ## Разрботка
 
-Запустить статический анализатор
+Запустить phpstan-анализатор
 
 ```bash
 make stan
@@ -96,10 +90,16 @@ make stan
 make phpunit
 ```
 
+Запустить rector-анализатор
+
+```bash
+make rector-scan
+```
+
 Запустить rector-процессинг
 
 ```bash
-make rector
+make rector-fix
 ```
 
 Запустить deptrac-анализатор

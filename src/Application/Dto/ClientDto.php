@@ -4,7 +4,7 @@ namespace App\Application\Dto;
 
 class ClientDto
 {
-    public const BIRTHDAY_FORMAT = 'd.m.Y';
+    public const BIRTHDAY_FORMAT = 'Y-m-d';
 
     public function __construct(
         private string $id,
@@ -90,7 +90,7 @@ class ClientDto
      * @return array{
      *     id:string,
      *     lastName:string,
-     *     name:string,
+     *     firstName:string,
      *     birthday:string,
      *     city:string,
      *     state:string,

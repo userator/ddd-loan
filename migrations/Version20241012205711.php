@@ -22,7 +22,7 @@ final class Version20241012205711 extends AbstractMigration
         $table->addColumn('id', Types::GUID);
         $table->addColumn('firstName', Types::STRING);
         $table->addColumn('lastName', Types::STRING);
-        $table->addColumn('birthday', Types::DATETIME_IMMUTABLE);
+        $table->addColumn('birthday', Types::DATE_IMMUTABLE);
         $table->addColumn('city', Types::STRING);
         $table->addColumn('state', Types::STRING);
         $table->addColumn('zip', Types::STRING);

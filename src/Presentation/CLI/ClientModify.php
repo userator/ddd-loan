@@ -52,16 +52,16 @@ class ClientModify extends Command
 
         $clientModified = $this->useCase->modifyClient($clientId, [
             'lastName' => $helper->ask($input, $output, new Question('Введите фамилию (' . $client->getLastName() . '): ', $client->getLastName())),
-            'firstName' => $helper->ask($input, $output, new Question('Введите имя: ' . $client->getFirstName() . '): ', $client->getFirstName())),
+            'firstName' => $helper->ask($input, $output, new Question('Введите имя: (' . $client->getFirstName() . '): ', $client->getFirstName())),
             'birthday' => $helper->ask($input, $output, new Question('Введите дату рождения (' . $client->getBirthday() . '): ', $client->getBirthday())),
-            'city' => $helper->ask($input, $output, new Question('Введите город: ' . $client->getCity() . '): ', $client->getCity())),
-            'state' => $helper->ask($input, $output, new Question('Введите код штата: ' . $client->getState() . '): ', $client->getState())),
-            'zip' => $helper->ask($input, $output, new Question('Введите ZIP: ' . $client->getZip() . '): ', $client->getZip())),
-            'ssn' => $helper->ask($input, $output, new Question('Введите SSN: ' . $client->getSsn() . '): ', $client->getSsn())),
-            'fico' => $helper->ask($input, $output, new Question('Введите FICO: ' . $client->getFico() . '): ', $client->getFico())),
-            'email' => $helper->ask($input, $output, new Question('Введите емайл: ' . $client->getEmail() . '): ', $client->getEmail())),
-            'phone' => $helper->ask($input, $output, new Question('Введите тел. номер: ' . $client->getPhone() . '): ', $client->getPhone())),
-            'monthIncome' => $helper->ask($input, $output, new Question('Введите месячный доход: ' . $client->getMonthIncome() . '): ', $client->getMonthIncome())),
+            'city' => $helper->ask($input, $output, new Question('Введите город: (' . $client->getCity() . '): ', $client->getCity())),
+            'state' => $helper->ask($input, $output, new Question('Введите код штата: (' . $client->getState() . '): ', $client->getState())),
+            'zip' => $helper->ask($input, $output, new Question('Введите ZIP: (' . $client->getZip() . '): ', $client->getZip())),
+            'ssn' => $helper->ask($input, $output, new Question('Введите SSN: (' . $client->getSsn() . '): ', $client->getSsn())),
+            'fico' => $helper->ask($input, $output, new Question('Введите FICO: (' . $client->getFico() . '): ', $client->getFico())),
+            'email' => $helper->ask($input, $output, new Question('Введите емайл: (' . $client->getEmail() . '): ', $client->getEmail())),
+            'phone' => $helper->ask($input, $output, new Question('Введите тел. номер: (' . $client->getPhone() . '): ', $client->getPhone())),
+            'monthIncome' => $helper->ask($input, $output, new Question('Введите месячный доход: (' . $client->getMonthIncome() . '): ', $client->getMonthIncome())),
         ]);
 
         $output->writeln('');
