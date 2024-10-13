@@ -5,7 +5,7 @@ namespace App\Application\UseCase;
 use App\Application\Dto\ClientDto;
 use App\Application\Exception\ApplicationException;
 use App\Application\Factory\ClientDtoFactory;
-use App\Domain\Entity\Client;
+use App\Domain\Factory\ClientFactory;
 use App\Domain\Repository\ClientRepository;
 use App\Domain\Service\UuidGenerator;
 use Throwable;
@@ -37,7 +37,7 @@ class ClientCreate
     public function createClient(array $data): ClientDto
     {
         try {
-            $client = Client::createFromArray(
+            $client = ClientFactory::createFromArray(
                 array_merge($data, ['id' => $this->uuidGenerator->generate()])
             );
 

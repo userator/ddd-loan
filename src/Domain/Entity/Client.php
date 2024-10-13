@@ -46,53 +46,6 @@ class Client
         }
     }
 
-    /**
-     * @param array{
-     *      id?:string,
-     *      lastName?:string,
-     *      firstName?:string,
-     *      birthday?:string,
-     *      city?:string,
-     *      state?:string,
-     *      zip?:string,
-     *      ssn?:string,
-     *      fico?:int,
-     *      email?:string,
-     *      phone?:string,
-     *      monthIncome?:int,
-     *  } $data
-     * @throws DomainException
-     */
-    public static function createFromArray(array $data): self
-    {
-        if (!isset(
-            $data['id'],
-            $data['lastName'],
-            $data['firstName'],
-            $data['birthday'],
-            $data['ssn'],
-            $data['fico'],
-            $data['email'],
-            $data['phone'],
-            $data['monthIncome'],
-        )) {
-            throw new DomainException('Invalid argument');
-        }
-
-        return new self(
-            new Id((string)$data['id']),
-            (string)$data['lastName'],
-            (string)$data['firstName'],
-            DateTimeImmutable::createFromFormat('d.m.Y', (string)$data['birthday']),
-            Address::createFromArray($data),
-            new Ssn((string)$data['ssn']),
-            new Fico((int)$data['fico']),
-            new Email((string)$data['email']),
-            new Phone((string)$data['phone']),
-            (int)$data['monthIncome'],
-        );
-    }
-
     // mutators
 
     public function getId(): Id

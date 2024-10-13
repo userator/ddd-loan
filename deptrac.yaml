@@ -18,6 +18,7 @@ deptrac:
           composerPath: ./composer.json
           composerLockPath: ./composer.lock
           packages:
+            - doctrine/dbal
             - symfony/dependency-injection
             - symfony/framework-bundle
             - symfony/http-kernel

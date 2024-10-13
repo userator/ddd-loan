@@ -60,14 +60,21 @@ services:
     arguments:
       $path: '%kernel.project_dir%/var/repository/product.txt'
 
+  App\Infrastructure\Repository\DbalClientRepository: ~
+  App\Infrastructure\Repository\DbalLoanRepository: ~
+  App\Infrastructure\Repository\DbalProductRepository: ~
+
   App\Domain\Repository\ClientRepository:
-    alias: App\Infrastructure\Repository\FileClientRepository
+#    alias: App\Infrastructure\Repository\FileClientRepository
+    alias: App\Infrastructure\Repository\DbalClientRepository
 
   App\Domain\Repository\LoanRepository:
-    alias: App\Infrastructure\Repository\FileLoanRepository
+#    alias: App\Infrastructure\Repository\FileLoanRepository
+    alias: App\Infrastructure\Repository\DbalLoanRepository
 
   App\Domain\Repository\ProductRepository:
-    alias: App\Infrastructure\Repository\FileProductRepository
+#    alias: App\Infrastructure\Repository\FileProductRepository
+    alias: App\Infrastructure\Repository\DbalProductRepository
 
   # randomizer
   App\Infrastructure\Service\RealScoreRandomizer: ~

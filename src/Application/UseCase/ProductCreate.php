@@ -5,7 +5,7 @@ namespace App\Application\UseCase;
 use App\Application\Dto\ProductDto;
 use App\Application\Exception\ApplicationException;
 use App\Application\Factory\ProductDtoFactory;
-use App\Domain\Entity\Product;
+use App\Domain\Factory\ProductFactory;
 use App\Domain\Repository\ProductRepository;
 use App\Domain\Service\UuidGenerator;
 use Throwable;
@@ -30,7 +30,7 @@ class ProductCreate
     public function createProduct(array $data): ProductDto
     {
         try {
-            $product = Product::createFromArray(
+            $product = ProductFactory::createFromArray(
                 array_merge($data, ['id' => $this->uuidGenerator->generate()]),
             );
 

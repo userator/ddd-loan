@@ -33,37 +33,6 @@ class Product
         }
     }
 
-    /**
-     * @param array{
-     *      id?:string,
-     *      name?:string,
-     *      term?:int,
-     *      interestRate?:float,
-     *      amount?:int,
-     *  } $data
-     * @throws DomainException
-     */
-    public static function createFromArray(array $data): self
-    {
-        if (!isset(
-            $data['id'],
-            $data['name'],
-            $data['term'],
-            $data['interestRate'],
-            $data['amount'],
-        )) {
-            throw new DomainException('Invalid argument');
-        }
-
-        return new self(
-            new Id((string)$data['id']),
-            (string)$data['name'],
-            (int)$data['term'],
-            (float)$data['interestRate'],
-            (int)$data['amount'],
-        );
-    }
-
     // mutators
 
     public function getId(): Id
