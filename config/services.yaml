@@ -65,15 +65,12 @@ services:
   App\Infrastructure\Repository\DbalProductRepository: ~
 
   App\Domain\Repository\ClientRepository:
-#    alias: App\Infrastructure\Repository\FileClientRepository
     alias: App\Infrastructure\Repository\DbalClientRepository
 
   App\Domain\Repository\LoanRepository:
-#    alias: App\Infrastructure\Repository\FileLoanRepository
     alias: App\Infrastructure\Repository\DbalLoanRepository
 
   App\Domain\Repository\ProductRepository:
-#    alias: App\Infrastructure\Repository\FileProductRepository
     alias: App\Infrastructure\Repository\DbalProductRepository
 
   # randomizer

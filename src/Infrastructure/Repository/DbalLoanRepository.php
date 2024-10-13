@@ -159,6 +159,8 @@ class DbalLoanRepository implements LoanRepository
         }
     }
 
+    // utils
+
     /**
      * @param string $prefix
      * @param array<mixed> $line

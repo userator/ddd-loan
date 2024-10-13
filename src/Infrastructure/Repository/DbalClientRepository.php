@@ -98,45 +98,45 @@ class DbalClientRepository implements ClientRepository
         try {
             $this->connection->executeStatement(
                 <<<SQL
-            INSERT INTO client (
-                id,
-                firstname,
-                lastname,
-                birthday,
-                city,
-                state,
-                zip,
-                ssn,
-                fico,
-                email,
-                phone,
-                monthincome
-            ) VALUES (
-                :id,
-                :firstname,
-                :lastname,
-                :birthday,
-                :city,
-                :state,
-                :zip,
-                :ssn,
-                :fico,
-                :email,
-                :phone,
-                :monthincome
-            ) ON CONFLICT (id) DO UPDATE SET
-                firstname = :firstname,
-                lastname = :lastname,
-                birthday = :birthday,
-                city = :city,
-                state = :state,
-                zip = :zip,
-                ssn = :ssn,
-                fico = :fico,
-                email = :email,
-                phone = :phone,
-                monthincome = :monthincome
-            SQL,
+                INSERT INTO client (
+                    id,
+                    firstname,
+                    lastname,
+                    birthday,
+                    city,
+                    state,
+                    zip,
+                    ssn,
+                    fico,
+                    email,
+                    phone,
+                    monthincome
+                ) VALUES (
+                    :id,
+                    :firstname,
+                    :lastname,
+                    :birthday,
+                    :city,
+                    :state,
+                    :zip,
+                    :ssn,
+                    :fico,
+                    :email,
+                    :phone,
+                    :monthincome
+                ) ON CONFLICT (id) DO UPDATE SET
+                    firstname = :firstname,
+                    lastname = :lastname,
+                    birthday = :birthday,
+                    city = :city,
+                    state = :state,
+                    zip = :zip,
+                    ssn = :ssn,
+                    fico = :fico,
+                    email = :email,
+                    phone = :phone,
+                    monthincome = :monthincome
+                SQL,
                 [
                     'id' => $entity->getId()->getValue(),
                     'firstname' => $entity->getFirstName(),
