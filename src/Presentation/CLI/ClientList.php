@@ -3,6 +3,7 @@
 namespace App\Presentation\CLI;
 
 use App\Application\Dto\ClientDto;
+use App\Application\Exception\ApplicationException;
 use App\Application\UseCase\ClientList as ClientListUseCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -25,6 +26,9 @@ class ClientList extends Command
             ->setHelp('Эта команда показывает список клиентов');
     }
 
+    /**
+     * @throws ApplicationException
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $clientLines = array_map(

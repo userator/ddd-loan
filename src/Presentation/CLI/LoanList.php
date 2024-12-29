@@ -3,6 +3,7 @@
 namespace App\Presentation\CLI;
 
 use App\Application\Dto\LoanDto;
+use App\Application\Exception\ApplicationException;
 use App\Application\UseCase\LoanList as LoanListUseCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -25,6 +26,9 @@ class LoanList extends Command
             ->setHelp('Эта команда показывает список займов');
     }
 
+    /**
+     * @throws ApplicationException
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $loanLines = array_map(

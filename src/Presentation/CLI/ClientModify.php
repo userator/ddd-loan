@@ -3,6 +3,7 @@
 namespace App\Presentation\CLI;
 
 use App\Application\Dto\ClientDto;
+use App\Application\Exception\ApplicationException;
 use App\Application\UseCase\ClientModify as ClientModifyUseCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -29,6 +30,9 @@ class ClientModify extends Command
             ->setHelp('Эта команда изменяет существующего клиента.');
     }
 
+    /**
+     * @throws ApplicationException
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /**

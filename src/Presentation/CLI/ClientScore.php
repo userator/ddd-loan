@@ -3,6 +3,7 @@
 namespace App\Presentation\CLI;
 
 use App\Application\Dto\ClientDto;
+use App\Application\Exception\ApplicationException;
 use App\Application\UseCase\ClientScore as ClientScoreUseCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -27,6 +28,9 @@ class ClientScore extends Command
             ->setHelp('Эта команда оценивает платежеспособность существующего клиента.');
     }
 
+    /**
+     * @throws ApplicationException
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /**

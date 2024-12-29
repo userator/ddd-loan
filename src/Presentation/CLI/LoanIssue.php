@@ -4,6 +4,7 @@ namespace App\Presentation\CLI;
 
 use App\Application\Dto\ClientDto;
 use App\Application\Dto\ProductDto;
+use App\Application\Exception\ApplicationException;
 use App\Application\UseCase\LoanIssue as LoanIssueUseCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -30,6 +31,9 @@ class LoanIssue extends Command
             ->setHelp('Эта команда выдаёт новый займ.');
     }
 
+    /**
+     * @throws ApplicationException
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /**

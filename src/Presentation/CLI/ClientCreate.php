@@ -3,6 +3,7 @@
 namespace App\Presentation\CLI;
 
 use App\Application\Dto\ClientDto;
+use App\Application\Exception\ApplicationException;
 use App\Application\UseCase\ClientCreate as ClientCreateUseCase;
 use Faker\Factory;
 use Symfony\Component\Console\Command\Command;
@@ -29,6 +30,9 @@ class ClientCreate extends Command
             ->setHelp('Эта команда создаёт нового клиента.');
     }
 
+    /**
+     * @throws ApplicationException
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /**

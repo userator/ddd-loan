@@ -3,6 +3,7 @@
 namespace App\Presentation\CLI;
 
 use App\Application\Dto\ProductDto;
+use App\Application\Exception\ApplicationException;
 use App\Application\UseCase\ProductList as ProductListUseCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -25,6 +26,9 @@ class ProductList extends Command
             ->setHelp('Эта команда показывает список продуктов');
     }
 
+    /**
+     * @throws ApplicationException
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $productLines = array_map(

@@ -2,6 +2,7 @@
 
 namespace App\Presentation\CLI;
 
+use App\Application\Exception\ApplicationException;
 use App\Application\UseCase\ProductCreate as ProductCreateUseCase;
 use Faker\Factory;
 use Symfony\Component\Console\Command\Command;
@@ -28,6 +29,9 @@ class ProductCreate extends Command
             ->setHelp('Эта команда создаёт новый продукт');
     }
 
+    /**
+     * @throws ApplicationException
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /**
