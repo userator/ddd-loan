@@ -10,6 +10,9 @@ class Phone
 {
     public const PHONE_REGEX = '/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/';
 
+    /**
+     * @throws DomainException
+     */
     public function __construct(
         private string $value,
     ) {

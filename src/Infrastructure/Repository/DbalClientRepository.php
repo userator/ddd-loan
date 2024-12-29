@@ -139,8 +139,8 @@ class DbalClientRepository implements ClientRepository
                 SQL,
                 [
                     'id' => $entity->getId()->getValue(),
-                    'firstname' => $entity->getFirstName(),
-                    'lastname' => $entity->getLastName(),
+                    'firstname' => $entity->getFirstName()->getValue(),
+                    'lastname' => $entity->getLastName()->getValue(),
                     'birthday' => $entity->getBirthday()->format(
                         $this->connection->getDatabasePlatform()->getDateFormatString()
                     ),

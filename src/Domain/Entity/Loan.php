@@ -45,8 +45,8 @@ final class Loan
      */
     public function calcInterestRate(): float
     {
-        return Loan::STATE !== $this->client->getAddress()->getState()
-            ? $this->product->getInterestRate()
-            : $this->product->getInterestRate() + Loan::RATE;
+        return Loan::STATE === $this->client->getAddress()->getState()
+            ? $this->product->getInterestRate() + Loan::RATE
+            : $this->product->getInterestRate();
     }
 }

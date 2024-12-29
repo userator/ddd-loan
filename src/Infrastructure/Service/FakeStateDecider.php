@@ -2,9 +2,9 @@
 
 namespace App\Infrastructure\Service;
 
-use App\Domain\Service\ScoreRandomizer;
+use App\Domain\Service\Decider;
 
-class FakeScoreRandomizer implements ScoreRandomizer
+class FakeStateDecider implements Decider
 {
 
     public function __construct(
@@ -12,7 +12,7 @@ class FakeScoreRandomizer implements ScoreRandomizer
     ) {
     }
 
-    public function randomize(): bool
+    public function decide(): bool
     {
         return $this->value;
     }

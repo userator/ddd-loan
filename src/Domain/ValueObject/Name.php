@@ -1,21 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\ValueObject;
 
 use App\Domain\Exception\DomainException;
 
-class Id
+class Name
 {
-    public const UUID_REGEX = '/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/';
-
     /**
      * @throws DomainException
      */
     public function __construct(
         private string $value,
     ) {
-        if (false === (bool)preg_match(self::UUID_REGEX, $this->value)) {
-            throw new DomainException(sprintf('Invalid ID [%s]', $this->value));
+        $this->value = trim($this->value);
+
+        if ('' === $this->value) {
+            throw new DomainException(sprintf('Некорректное значение [%s], должно быть более 0 символов', $this->value));
         }
     }
 
@@ -23,5 +25,4 @@ class Id
     {
         return $this->value;
     }
-
 }

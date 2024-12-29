@@ -13,8 +13,8 @@ class LoanFactory
     /**
      * @param array{
      *     id?:string,
-     *     client?:array<mixed>,
-     *     product?:array<mixed>,
+     *     client?:array<string,mixed>,
+     *     product?:array<string,mixed>,
      *     issuedAt?:string,
      * } $data
      * @throws DomainException
@@ -41,8 +41,8 @@ class LoanFactory
     /**
      * @param array<array{
      *     id?:string,
-     *     client?:array<mixed>,
-     *     product?:array<mixed>,
+     *     client?:array<string,mixed>,
+     *     product?:array<string,mixed>,
      *     issuedAt?:string,
      * }> $datas
      * @return Loan[]

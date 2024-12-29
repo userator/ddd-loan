@@ -15,7 +15,7 @@ use App\Domain\Event\LoanIssued;
 use App\Domain\Repository\ClientRepository;
 use App\Domain\Repository\LoanRepository;
 use App\Domain\Repository\ProductRepository;
-use App\Domain\Service\ScoreRandomizer;
+use App\Domain\Service\Decider;
 use App\Domain\Service\UuidGenerator;
 use App\Domain\ValueObject\Id;
 use DateTimeImmutable;
@@ -28,7 +28,7 @@ class LoanIssue
         private ProductRepository $productRepository,
         private LoanRepository $loanRepository,
         private EventDispatcher $dispatcher,
-        private ScoreRandomizer $randomizer,
+        private Decider $randomizer,
         private UuidGenerator $uuidGenerator,
     ) {
     }

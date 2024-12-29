@@ -11,6 +11,9 @@ class Address
     public const SATE_REGEX = '/^[A-Z]{2}$/';
     public const ZIP_REGEX = '/^\d{5}(?:[-\s]\d{4})?$/';
 
+    /**
+     * @throws DomainException
+     */
     public function __construct(
         private string $city,
         private string $state,
@@ -33,6 +36,9 @@ class Address
         }
     }
 
+    /**
+     * @throws DomainException
+     */
     public static function createFromString(string $address): self
     {
         $parts = explode(trim(self::ADDRESS_SEPARATOR), $address, 3);

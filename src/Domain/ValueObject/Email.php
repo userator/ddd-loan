@@ -8,6 +8,9 @@ use App\Domain\Exception\DomainException;
 
 class Email
 {
+    /**
+     * @throws DomainException
+     */
     public function __construct(
         private string $value,
     ) {

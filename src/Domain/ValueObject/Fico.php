@@ -9,6 +9,9 @@ class Fico
     public const MIN = 300;
     public const MAX = 850;
 
+    /**
+     * @throws DomainException
+     */
     public function __construct(
         private int $value,
     ) {

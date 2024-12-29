@@ -8,6 +8,7 @@ use App\Domain\ValueObject\Address;
 use App\Domain\ValueObject\Email;
 use App\Domain\ValueObject\Fico;
 use App\Domain\ValueObject\Id;
+use App\Domain\ValueObject\Name;
 use App\Domain\ValueObject\Phone;
 use App\Domain\ValueObject\Ssn;
 use DateTimeImmutable;
@@ -49,8 +50,8 @@ class ClientFactory
 
         return new Client(
             new Id((string)$data['id']),
-            (string)$data['lastName'],
-            (string)$data['firstName'],
+            new Name((string)$data['lastName']),
+            new Name((string)$data['firstName']),
             DateTimeImmutable::createFromFormat('Y-m-d', (string)$data['birthday']),
             Address::createFromArray($data),
             new Ssn((string)$data['ssn']),

@@ -11,8 +11,8 @@ class ClientDtoFactory
     {
         return new ClientDto(
             $entity->getId()->getValue(),
-            $entity->getLastName(),
-            $entity->getFirstName(),
+            $entity->getLastName()->getValue(),
+            $entity->getFirstName()->getValue(),
             $entity->getBirthday()->format(ClientDto::BIRTHDAY_FORMAT),
             $entity->getAddress()->getCity(),
             $entity->getAddress()->getState(),

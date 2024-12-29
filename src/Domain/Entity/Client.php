@@ -3,21 +3,25 @@
 namespace App\Domain\Entity;
 
 use App\Domain\Exception\DomainException;
-use App\Domain\Service\ScoreRandomizer;
+use App\Domain\Service\Decider;
 use App\Domain\ValueObject\Address;
 use App\Domain\ValueObject\Email;
 use App\Domain\ValueObject\Fico;
 use App\Domain\ValueObject\Id;
+use App\Domain\ValueObject\Name;
 use App\Domain\ValueObject\Phone;
 use App\Domain\ValueObject\Ssn;
 use DateTimeImmutable;
 
 class Client
 {
+    /**
+     * @throws DomainException
+     */
     public function __construct(
         private Id $id,
-        private string $lastName,
-        private string $firstName,
+        private Name $lastName,
+        private Name $firstName,
         private DateTimeImmutable $birthday,
         private Address $address,
         private Ssn $ssn,
@@ -26,23 +30,12 @@ class Client
         private Phone $phone,
         private int $monthIncome,
     ) {
-        $this->lastName = trim($this->lastName);
-        $this->firstName = trim($this->firstName);
-
         if (0 >= $this->birthday->diff(new DateTimeImmutable())->y) {
             throw new DomainException(sprintf('Некорректный день рождения [%s], должен быть больше 0', $this->birthday->diff(new DateTimeImmutable())->y));
         }
 
         if (0 >= $this->monthIncome) {
             throw new DomainException(sprintf('Некорректный месячный доход [%s], должен быть больше 0', $this->monthIncome));
-        }
-
-        if ('' === $this->lastName) {
-            throw new DomainException(sprintf('Некорректная фамилия [%s], должен быть более 0 символов', $this->lastName));
-        }
-
-        if ('' === $this->firstName) {
-            throw new DomainException(sprintf('Некорректное имя [%s], должно быть более 0 символов', $this->firstName));
         }
     }
 
@@ -53,12 +46,12 @@ class Client
         return $this->id;
     }
 
-    public function getLastName(): string
+    public function getLastName(): Name
     {
         return $this->lastName;
     }
 
-    public function getFirstName(): string
+    public function getFirstName(): Name
     {
         return $this->firstName;
     }
@@ -102,7 +95,7 @@ class Client
 
     public function buildFullName(): string
     {
-        return $this->firstName . ' ' . $this->lastName;
+        return $this->firstName->getValue() . ' ' . $this->lastName->getValue();
     }
 
     public function calcAge(): int
@@ -119,7 +112,7 @@ class Client
      * Кредит выдается только в штатах CA, NY, NV
      * Клиентам из NY рандомно отказываем.
      */
-    public function score(ScoreRandomizer $randomizer): bool
+    public function score(Decider $decider): bool
     {
         if ($this->getFico()->getValue() <= 500) {
             return false;
@@ -141,8 +134,8 @@ class Client
             return false;
         }
 
-        if ('NY' === $this->getAddress()->getState()) {
-            return $randomizer->randomize();
+        if ('NY' === $this->getAddress()->getState() && !$decider->decide()) {
+            return false;
         }
 
         return true;

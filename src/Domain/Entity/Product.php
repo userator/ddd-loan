@@ -7,6 +7,9 @@ use App\Domain\ValueObject\Id;
 
 class Product
 {
+    /**
+     * @throws DomainException
+     */
     public function __construct(
         private Id $id,
         private string $name,

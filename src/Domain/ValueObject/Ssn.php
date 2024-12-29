@@ -8,6 +8,9 @@ class Ssn
 {
     public const SSN_REGEX = '/^\d{3}-\d{2}-\d{4}$/';
 
+    /**
+     * @throws DomainException
+     */
     public function __construct(
         private string $value,
     ) {

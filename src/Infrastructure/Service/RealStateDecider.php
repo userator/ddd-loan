@@ -2,17 +2,17 @@
 
 namespace App\Infrastructure\Service;
 
-use App\Domain\Service\ScoreRandomizer;
+use App\Domain\Service\Decider;
 use App\Infrastructure\Exception\InfrastructureException;
 use Throwable;
 
-class RealScoreRandomizer implements ScoreRandomizer
+class RealStateDecider implements Decider
 {
 
     /**
      * @throws InfrastructureException
      */
-    public function randomize(): bool
+    public function decide(): bool
     {
         try {
             return (bool)random_int(0, 1);
