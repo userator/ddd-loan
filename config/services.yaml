@@ -12,7 +12,7 @@ services:
       - '../src/Domain/Event/*'
       - '../src/Domain/Exception/*'
       - '../src/Domain/ValueObject/*'
-      - '../src/Domain/Service/FakeRandomizer.php'
+      - '../src/Domain/Service/FakeStateDecider.php'
       - '../src/Application/Exception/*'
       - '../src/Infrastructure/Exception/*'
       - '../src/Infrastructure/HttpKernel/Kernel.php'
@@ -73,11 +73,11 @@ services:
   App\Domain\Repository\ProductRepository:
     alias: App\Infrastructure\Repository\DbalProductRepository
 
-  # randomizer
-  App\Infrastructure\Service\RealScoreRandomizer: ~
+  # decider
+  App\Infrastructure\Service\RealStateDecider: ~
 
-  App\Domain\Service\ScoreRandomizer:
-    alias: App\Infrastructure\Service\RealScoreRandomizer
+  App\Domain\Service\Decider:
+    alias: App\Infrastructure\Service\RealStateDecider
 
   # uuid generator
   App\Infrastructure\Service\RfcUuidGenerator: ~
