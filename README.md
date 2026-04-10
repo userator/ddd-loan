@@ -11,7 +11,7 @@ make init
 Подключение к контейнеру
 
 ```bash
-make sh_php
+make sh-php
 ```
 
 ## Использование

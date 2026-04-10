@@ -25,10 +25,10 @@ migrate:
 
 init: build env start install migrate status
 
-sh_php:
+sh-php:
 	docker compose exec -i php bash
 
-sh_postgres:
+sh-postgres:
 	docker compose exec -i postgres bash
 
 stan:
